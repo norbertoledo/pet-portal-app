@@ -5,27 +5,29 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".StoreClass"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashStyle"
             android:noHistory="true"
-            >
-
+            android:theme="@style/SplashStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".LinksActivity" />
+        <activity android:name=".SignUpActivity" />
     </application>
 
 </manifest>

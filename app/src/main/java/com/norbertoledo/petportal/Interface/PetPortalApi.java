@@ -16,6 +16,6 @@ public interface PetPortalApi {
         //Call<List<Links>> getLinks();
 
         @GET("links")
-        Call<List<Links>> getPosts(@Header("Authorization") String authorization);
+        Call<List<Links>> getLinks(@Header("Authorization") String authorization);
 
 }
