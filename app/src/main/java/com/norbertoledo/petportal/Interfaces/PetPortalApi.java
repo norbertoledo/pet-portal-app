@@ -1,6 +1,6 @@
-package com.norbertoledo.petportal.Interface;
+package com.norbertoledo.petportal.Interfaces;
 
-import com.norbertoledo.petportal.Model.Links;
+import com.norbertoledo.petportal.Models.Links;
 
 import java.util.List;
 

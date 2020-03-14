@@ -1,81 +1,111 @@
 package com.norbertoledo.petportal;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 
-public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG = "MAIN";
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth mAuth;
-    private StoreClass store;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        store = (StoreClass) getApplicationContext();
-
-
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
+        setContentView(R.layout.activity_home);
 
-    private void updateUI(FirebaseUser currentUser) {
-        Log.d(TAG, "currentUser-> "+currentUser);
-        if(currentUser != null) {
-            getIdToken(currentUser);
-        }else{
-            gotoSignIn();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
+
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
+        toggle.syncState();
+
+        if(savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_home);
         }
     }
 
-    private void getIdToken(FirebaseUser currentUser){
-        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        currentUser.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-            public void onComplete(@NonNull Task<GetTokenResult> task) {
-                if (task.isSuccessful()) {
-                    String userToken = task.getResult().getToken();
-                    // Send token to your backend via HTTPS
-                    // ...
-                    store.setUserToken(userToken);
-                    gotoHome();
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                } else {
-                    // Handle error -> task.getException();
-                }
-            }
-        });
+        switch (item.getItemId()){
+            case R.id.nav_home:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                break;
+            case R.id.nav_services:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ServicesFragment()).commit();
+                break;
+            case R.id.nav_places:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new PlacesFragment()).commit();
+                break;
+            case R.id.nav_tips:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TipsFragment()).commit();
+                break;
+            case R.id.nav_links:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new LinksFragment()).commit();
+                break;
+            case R.id.nav_profile:
+                showUserInfo();
+                break;
+            case R.id.nav_logout:
+                logout();
+                break;
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
-    private void gotoHome(){
-        //Intent intent = new Intent(SignInActivity.this, LinksActivity.class);
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    private void logout(){
+
+        Toast.makeText(this, "¡¡¡ LOGOUT !!!", Toast.LENGTH_LONG).show();
+        /*
+        mAuth.signOut();
+        startActivity(new Intent(InitialActivity.this, SignInActivity.class));
         finish();
+        */
     }
 
-    private void gotoSignIn(){
-        Intent intent = new Intent(MainActivity.this, SignInActivity.class);
-        startActivity(intent);
-        finish();
+    private void showUserInfo(){
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        String email = currentUser.getEmail();
+        Toast.makeText(this, email, Toast.LENGTH_SHORT).show();
     }
+
+
+
 }

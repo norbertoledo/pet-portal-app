@@ -1,8 +1,8 @@
-package com.norbertoledo.petportal;
+package com.norbertoledo.petportal.Models;
 
 import android.app.Application;
 
-public class StoreClass extends Application {
+public class Store extends Application {
 
     private String email;
     private String userToken;

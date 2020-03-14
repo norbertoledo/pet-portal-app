@@ -5,10 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.norbertoledo.petportal.Interface.PetPortalApi;
-import com.norbertoledo.petportal.Model.Links;
+import com.norbertoledo.petportal.Interfaces.PetPortalApi;
+import com.norbertoledo.petportal.Models.Links;
+import com.norbertoledo.petportal.Models.Store;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LinksActivity extends AppCompatActivity {
 
-    private StoreClass store;
+    private Store store;
     private String apiUrl;
     private String userToken;
     private TextView jsonTextView;
@@ -34,7 +33,7 @@ public class LinksActivity extends AppCompatActivity {
         jsonTextView = findViewById(R.id.jsonText);
         apiUrl = "https://pet-portal.web.app/api/";
 
-        store = (StoreClass) getApplicationContext();
+        store = (Store) getApplicationContext();
 
     }
 

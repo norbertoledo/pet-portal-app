@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal.Model;
+package com.norbertoledo.petportal.Models;
 
 public class Links {
 

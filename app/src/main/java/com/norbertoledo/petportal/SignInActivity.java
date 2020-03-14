@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,16 +14,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
-import com.norbertoledo.petportal.Interface.PetPortalApi;
-import com.norbertoledo.petportal.Model.Links;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.norbertoledo.petportal.Models.Store;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -33,14 +23,14 @@ public class SignInActivity extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
-    private StoreClass store;
+    private Store store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        store = (StoreClass) getApplicationContext();
+        store = (Store) getApplicationContext();
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -108,7 +98,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void gotoHome(){
         //Intent intent = new Intent(SignInActivity.this, LinksActivity.class);
-        Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
