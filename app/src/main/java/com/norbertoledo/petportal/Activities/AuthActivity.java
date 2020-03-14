@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal;
+package com.norbertoledo.petportal.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.norbertoledo.petportal.Models.Store;
 
-public class InitialActivity extends AppCompatActivity {
+public class AuthActivity extends AppCompatActivity {
 
     private static final String TAG = "MAIN";
 
@@ -72,13 +72,13 @@ public class InitialActivity extends AppCompatActivity {
 
     private void gotoHome(){
         //Intent intent = new Intent(SignInActivity.this, LinksActivity.class);
-        Intent intent = new Intent(InitialActivity.this, MainActivity.class);
+        Intent intent = new Intent(AuthActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
     private void gotoSignIn(){
-        Intent intent = new Intent(InitialActivity.this, SignInActivity.class);
+        Intent intent = new Intent(AuthActivity.this, SignInActivity.class);
         startActivity(intent);
         finish();
     }

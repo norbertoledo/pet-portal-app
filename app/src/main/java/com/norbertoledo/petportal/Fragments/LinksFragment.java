@@ -1,13 +1,22 @@
-package com.norbertoledo.petportal;
+package com.norbertoledo.petportal.Fragments;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+import com.norbertoledo.petportal.Activities.MainActivity;
 import com.norbertoledo.petportal.Interfaces.PetPortalApi;
 import com.norbertoledo.petportal.Models.Links;
 import com.norbertoledo.petportal.Models.Store;
+import com.norbertoledo.petportal.R;
 
 import java.util.List;
 
@@ -17,38 +26,56 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LinksActivity extends AppCompatActivity {
+public class LinksFragment extends Fragment {
 
     private Store store;
     private String apiUrl;
     private String userToken;
     private TextView jsonTextView;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_links);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_links, container, false);
 
 
-        jsonTextView = findViewById(R.id.jsonText);
+
+        jsonTextView = view.findViewById(R.id.jsonText);
+
+
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+
         apiUrl = "https://pet-portal.web.app/api/";
+        store = (Store) context.getApplicationContext();
 
-        store = (Store) getApplicationContext();
+
 
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-
         userToken = store.getUserToken();
         if(userToken != ""){
+            //jsonTextView.setText(userToken);
             getLinks(userToken);
+
         }
     }
 
     private void getLinks(String idToken){
 
+        //Toast.makeText(getContext(), apiUrl, Toast.LENGTH_LONG).show();
+        jsonTextView.setText("");
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(apiUrl)
@@ -88,5 +115,7 @@ public class LinksActivity extends AppCompatActivity {
                 jsonTextView.setText(t.getMessage());
             }
         });
+
+
     }
 }

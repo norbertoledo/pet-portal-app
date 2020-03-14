@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".Activities.SplashActivity"
             android:noHistory="true"
             android:theme="@style/SplashStyle">
             <intent-filter>
@@ -23,12 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InitialActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".MainActivity"
+        <activity android:name=".Activities.AuthActivity" />
+        <activity android:name=".Activities.SignInActivity" />
+        <activity android:name=".Activities.SignUpActivity" />
+        <activity android:name=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LinksActivity" />
+        <activity android:name=".Activities.LinksActivity" />
     </application>
 
 </manifest>

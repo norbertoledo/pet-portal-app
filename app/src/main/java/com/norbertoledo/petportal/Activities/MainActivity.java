@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal;
+package com.norbertoledo.petportal.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,6 +14,12 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.norbertoledo.petportal.Fragments.HomeFragment;
+import com.norbertoledo.petportal.Fragments.LinksFragment;
+import com.norbertoledo.petportal.Fragments.PlacesFragment;
+import com.norbertoledo.petportal.R;
+import com.norbertoledo.petportal.Fragments.ServicesFragment;
+import com.norbertoledo.petportal.Fragments.TipsFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -95,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toast.makeText(this, "¡¡¡ LOGOUT !!!", Toast.LENGTH_LONG).show();
         /*
         mAuth.signOut();
-        startActivity(new Intent(InitialActivity.this, SignInActivity.class));
+        startActivity(new Intent(AuthActivity.this, SignInActivity.class));
         finish();
         */
     }

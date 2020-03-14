@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal;
+package com.norbertoledo.petportal.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.norbertoledo.petportal.Models.Store;
+import com.norbertoledo.petportal.R;
 
 public class SignInActivity extends AppCompatActivity {
 

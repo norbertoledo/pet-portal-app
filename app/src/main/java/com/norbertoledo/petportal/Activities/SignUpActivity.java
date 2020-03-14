@@ -1,8 +1,10 @@
-package com.norbertoledo.petportal;
+package com.norbertoledo.petportal.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.norbertoledo.petportal.R;
 
 public class SignUpActivity extends AppCompatActivity {
 

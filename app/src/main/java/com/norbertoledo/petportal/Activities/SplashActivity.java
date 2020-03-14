@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal;
+package com.norbertoledo.petportal.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,6 @@ public class SplashActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        startActivity(new Intent(this, InitialActivity.class));
+        startActivity(new Intent(this, AuthActivity.class));
     }
 }
