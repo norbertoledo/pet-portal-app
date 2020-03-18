@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal.Fragments;
+package com.norbertoledo.petportal.ui.services;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

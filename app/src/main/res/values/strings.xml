@@ -1,5 +1,37 @@
 <resources>
     <string name="app_name">Pet Portal</string>
-    <string name="navigation_drawer_open">Open Navigation Drawer</string>
-    <string name="navigation_drawer_close">Close Navigation Drawer</string>
+
+    <!-- DRAWER MENU -->
+    <string name="navigation_drawer_open">Abrir Menu</string>
+    <string name="navigation_drawer_close">Cerrar Menu</string>
+
+    <!-- SIGN IN FORM -->
+    <string name="signin_text_title">Ingresar</string>
+    <string name="signin_btn_login">Ingresar</string>
+    <string name="signin_text_register">Si aún no tienes cuenta, créala ahora!</string>
+    <string name="signin_btn_register">Registrarse</string>
+    <string name="signin_input_email">Email</string>
+    <string name="signin_input_password">Password</string>
+    <string name="signin_message_success">Bienvenido!</string>
+    <string name="signin_message_error">Email o Password Incorrectos!</string>
+
+    <!-- SIGN UP FORM -->
+    <string name="signup_text_title">Registrarse</string>
+    <string name="signup_btn_login">Ingresar</string>
+    <string name="signup_text_register">Si ya tienes cuenta, Ingresa!</string>
+    <string name="signup_btn_register">Registrarse</string>
+    <string name="signup_input_email">Email</string>
+    <string name="signup_input_password">Password</string>
+    <string name="signup_input_confirm_password">Confirmar Password</string>
+    <string name="signup_input_name">Nombre</string>
+
+    <!-- VALIDATE FORM -->
+    <string name="form_validate_error">Completa todos los campos con un formato válido</string>
+
+    <!-- USER -->
+    <string name="user_message_token_success">Token de usuario válido</string>
+    <string name="user_message_token_error">No se ha obtenido el token de usuario</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

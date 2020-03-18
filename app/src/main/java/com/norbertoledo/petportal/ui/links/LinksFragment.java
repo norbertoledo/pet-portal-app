@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal.Fragments;
+package com.norbertoledo.petportal.ui.links;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,83 +6,58 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.norbertoledo.petportal.Activities.MainActivity;
-import com.norbertoledo.petportal.Interfaces.PetPortalApi;
-import com.norbertoledo.petportal.Models.Links;
-import com.norbertoledo.petportal.Models.Store;
+import com.norbertoledo.petportal.api.IApiRequest;
+import com.norbertoledo.petportal.api.ProviderBuilder;
+import com.norbertoledo.petportal.models.Links;
 import com.norbertoledo.petportal.R;
+import com.norbertoledo.petportal.models.User;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LinksFragment extends Fragment {
 
-    private Store store;
-    private String apiUrl;
+    private User userStore;
     private String userToken;
     private TextView jsonTextView;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.fragment_links, container, false);
-
-
-
         jsonTextView = view.findViewById(R.id.jsonText);
-
-
-
-
 
         return view;
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        userStore = User.getInstance();
+        userToken = userStore.getToken();
 
-        apiUrl = "https://pet-portal.web.app/api/";
-        store = (Store) context.getApplicationContext();
-
-
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        userToken = store.getUserToken();
         if(userToken != ""){
-            //jsonTextView.setText(userToken);
             getLinks(userToken);
-
         }
     }
 
     private void getLinks(String idToken){
 
-        //Toast.makeText(getContext(), apiUrl, Toast.LENGTH_LONG).show();
         jsonTextView.setText("");
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(apiUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        PetPortalApi iApi = retrofit.create(PetPortalApi.class);
+        IApiRequest iApi = ProviderBuilder.getInstance().create(IApiRequest.class);
 
         Call<List<Links>> call = iApi.getLinks(idToken);
 
@@ -97,7 +72,6 @@ public class LinksFragment extends Fragment {
                 }
 
                 List<Links> linksList = response.body();
-
 
 
                 for( Links post: linksList){
@@ -118,4 +92,6 @@ public class LinksFragment extends Fragment {
 
 
     }
+
+
 }
