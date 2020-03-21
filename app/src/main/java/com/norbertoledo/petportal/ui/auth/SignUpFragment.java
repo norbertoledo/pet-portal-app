@@ -25,9 +25,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.norbertoledo.petportal.R;
-import com.norbertoledo.petportal.activities.MainActivity;
-import com.norbertoledo.petportal.api.IApiRequest;
-import com.norbertoledo.petportal.api.ProviderBuilder;
+import com.norbertoledo.petportal.repositories.webservice.WebserviceBuilder;
+import com.norbertoledo.petportal.ui.app.MainActivity;
+import com.norbertoledo.petportal.repositories.webservice.IWebservice;
+import com.norbertoledo.petportal.repositories.webservice.Webservice;
 import com.norbertoledo.petportal.models.User;
 
 
@@ -194,7 +195,7 @@ public class SignUpFragment extends Fragment {
                     // ...
 
                     userStore.setToken(userToken);
-                    createUserApi(userToken);
+                    createUserDB(userToken);
 
                 } else {
                     Toast.makeText(getContext(), "No se pudo obtener TOKEN.", Toast.LENGTH_SHORT).show();
@@ -204,9 +205,14 @@ public class SignUpFragment extends Fragment {
         });
     }
 
-    private void createUserApi(String userToken){
 
-        IApiRequest iApi = ProviderBuilder.getInstance().create(IApiRequest.class);
+
+
+
+    // Esto deberia estar en UserRepository con un metodo createUserDB
+    private void createUserDB(String userToken){
+
+        IWebservice iApi = WebserviceBuilder.getInstance().create(IWebservice.class);
 
         Call<User> call = iApi.createUser(userToken, userStore);
 
@@ -230,8 +236,10 @@ public class SignUpFragment extends Fragment {
             }
         });
 
-
     }
+
+
+
 
     private void loadApp(){
         Intent intent = new Intent(getContext(), MainActivity.class);

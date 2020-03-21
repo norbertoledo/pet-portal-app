@@ -1,11 +1,12 @@
-package com.norbertoledo.petportal.api;
+package com.norbertoledo.petportal.repositories.webservice;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ProviderBuilder {
+public class WebserviceBuilder {
 
     private static Retrofit instance;
+
     // Singleton pattern
     public static Retrofit getInstance(){
         if(instance == null ){

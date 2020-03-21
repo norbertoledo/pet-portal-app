@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal.ui.home;
+package com.norbertoledo.petportal.ui.app.places;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.norbertoledo.petportal.R;
 
-public class HomeFragment extends Fragment {
+public class PlacesFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_places, container, false);
     }
 }

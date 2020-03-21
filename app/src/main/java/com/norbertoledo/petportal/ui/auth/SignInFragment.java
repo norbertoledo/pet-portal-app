@@ -23,7 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.norbertoledo.petportal.R;
-import com.norbertoledo.petportal.activities.MainActivity;
+import com.norbertoledo.petportal.ui.app.MainActivity;
 
 import com.norbertoledo.petportal.models.User;
 

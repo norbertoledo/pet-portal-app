@@ -1,15 +1,9 @@
-package com.norbertoledo.petportal.activities;
+package com.norbertoledo.petportal.ui.app;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
-import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -17,9 +11,6 @@ import androidx.navigation.ui.NavigationUI;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Layout;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -29,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.norbertoledo.petportal.R;
+import com.norbertoledo.petportal.ui.auth.AuthActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-
-
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -62,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
 
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home,
                 R.id.nav_services,
@@ -78,16 +66,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 
-
-
-
-
-/*
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.setDrawerIndicatorEnabled(true);
-        toggle.syncState();
-*/
 
         setupDrawerContent();
         showUserInfo();
@@ -138,22 +116,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
 
 
 
-
     private void logout(){
-
-        //Toast.makeText(this, "¡¡¡ LOGOUT !!!", Toast.LENGTH_LONG).show();
-
         mAuth.signOut();
         startActivity(new Intent(MainActivity.this, AuthActivity.class));
         finish();
-
     }
 
     private FirebaseUser getUserInfo(){
@@ -176,13 +148,11 @@ public class MainActivity extends AppCompatActivity {
             headerEmail = header.findViewById(R.id.headerEmail);
 
 
-            String nombre = "";
-
-            if(user.getDisplayName() != null){
-                nombre = user.getDisplayName();
+            if(user.getDisplayName() == null){
+                name = "Bienvenido";
             }
 
-            headerDisplayName.setText(nombre);
+            headerDisplayName.setText(name);
             headerEmail.setText(user.getEmail());
 
         }else{

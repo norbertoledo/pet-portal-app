@@ -7,7 +7,7 @@
     android:id="@+id/auth_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AuthActivity">
+    tools:context=".ui.auth.AuthActivity">
 
 
 

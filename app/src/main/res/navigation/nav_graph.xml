@@ -6,7 +6,7 @@
     app:startDestination="@id/nav_home">
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.norbertoledo.petportal.ui.home.HomeFragment"
+        android:name="com.norbertoledo.petportal.ui.app.home.HomeFragment"
         android:label="Pet Portal"
         tools:layout="@layout/fragment_home">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_services"
-        android:name="com.norbertoledo.petportal.ui.services.ServicesFragment"
+        android:name="com.norbertoledo.petportal.ui.app.services.ServicesFragment"
         android:label="Servicios"
         tools:layout="@layout/fragment_services" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_places"
-        android:name="com.norbertoledo.petportal.ui.places.PlacesFragment"
+        android:name="com.norbertoledo.petportal.ui.app.places.PlacesFragment"
         android:label="Lugares"
         tools:layout="@layout/fragment_places" >
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_tips"
-        android:name="com.norbertoledo.petportal.ui.tips.TipsFragment"
+        android:name="com.norbertoledo.petportal.ui.app.tips.TipsFragment"
         android:label="Tips"
         tools:layout="@layout/fragment_tips" >
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_links"
-        android:name="com.norbertoledo.petportal.ui.links.LinksFragment"
+        android:name="com.norbertoledo.petportal.ui.app.links.LinksFragment"
         android:label="Links"
         tools:layout="@layout/fragment_links" >
         <action
