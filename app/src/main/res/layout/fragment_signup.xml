@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.auth.SignUpFragment"
+    android:theme="@style/AppTheme.NoActionBar"
     android:background="@color/colorPrimaryDark">
 
     <LinearLayout
@@ -70,13 +71,22 @@
             android:hint="@string/signup_input_name"
             android:inputType="text" />
 
+        <Spinner
+            android:id="@+id/signupSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:spinnerMode="dialog"
+            />
+
         <Button
             android:id="@+id/signupBtnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_red_light"
             android:text="@string/signup_btn_register"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp"/>
 
 
 

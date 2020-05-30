@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string-array name="cities_array">
+    <item>Alicante</item>
+    <item>Valencia</item>
+    <item>Castellón</item>
+    <item>Murcia</item>
+    <item>Sevilla</item>
+    <item>Madrid</item>
+    <item>Barcelona</item>
+    <item>Lérida</item>
+</string-array>
+</resources>

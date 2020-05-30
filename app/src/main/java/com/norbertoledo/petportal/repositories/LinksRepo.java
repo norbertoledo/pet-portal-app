@@ -1,6 +1,6 @@
 package com.norbertoledo.petportal.repositories;
 
-import android.util.Log;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
@@ -15,13 +15,24 @@ public class LinksRepo {
 
     private static final String TAG = "LINKS REPO";
 
+    private static LinksRepo instance;
+
     private IWebservice Iws;
     private LiveData<List<Link>> listLink;
     private Boolean conn = true;
     private Webservice ws;
 
+    public static LinksRepo getInstance(){
+        if( instance == null ){
+            instance = new LinksRepo();
+        }
+        return instance;
+    }
 
-    public LiveData<List<Link>> getLinksRepo(String token){
+
+
+    public LiveData<List<Link>> getLinksRepo(final String token){
+
 
         if (conn){
             // Load data from webservice
@@ -33,6 +44,8 @@ public class LinksRepo {
         }
 
         return listLink;
+
+
     }
 
 }

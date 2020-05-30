@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal.ui.app.tips;
+package com.norbertoledo.petportal.ui.app;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -1,12 +1,16 @@
 package com.norbertoledo.petportal.models;
 
+import android.net.Uri;
+
 public class User {
 
     private static User instance;
 
-    private String email;
-    private String name;
+    private String uid;
     private String token;
+    private String name;
+    private String email;
+    private String photoUrl;
     private String city;
 
     public static User getInstance(){
@@ -14,6 +18,22 @@ public class User {
             instance = new User();
         }
         return instance;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public String getCity() {

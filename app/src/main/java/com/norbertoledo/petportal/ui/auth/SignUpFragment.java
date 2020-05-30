@@ -1,18 +1,21 @@
 package com.norbertoledo.petportal.ui.auth;
 
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -26,10 +29,9 @@ import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.repositories.webservice.WebserviceBuilder;
-import com.norbertoledo.petportal.ui.app.MainActivity;
 import com.norbertoledo.petportal.repositories.webservice.IWebservice;
-import com.norbertoledo.petportal.repositories.webservice.Webservice;
 import com.norbertoledo.petportal.models.User;
+import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
 
 import retrofit2.Call;
@@ -41,10 +43,18 @@ public class SignUpFragment extends Fragment {
     private static final String TAG = "SIGN UP";
 
     private FirebaseAuth mAuth;
-    private User userStore;
+    private FirebaseUser currentUser;
+    private User user;
+    private UserViewModel userViewModel;
     private EditText signupEmail, signupPassword, signupConfirmPassword, signupName;
     private Button signupBtnLogin, signupBtnRegister;
+    private Spinner signupSpinner;
+    private ArrayAdapter<CharSequence> adapter;
     private NavController navController;
+    private String email;
+    private String password;
+    private String name;
+    private String city;
 
 
     public SignUpFragment(){}
@@ -64,11 +74,19 @@ public class SignUpFragment extends Fragment {
         signupName = view.findViewById(R.id.signupName);
         signupBtnLogin = view.findViewById(R.id.signupBtnLogin);
         signupBtnRegister = view.findViewById(R.id.signupBtnRegister);
+        signupSpinner = view.findViewById(R.id.signupSpinner);
 
-        navController = Navigation.findNavController(getActivity(), R.id.nav_host_auth);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.cities_array, android.R.layout.simple_spinner_item);
 
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        // Apply the adapter to the spinner
+        signupSpinner.setAdapter(adapter);
 
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         return view;
     }
@@ -79,7 +97,7 @@ public class SignUpFragment extends Fragment {
         signupBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_fragment_signup_to_fragment_signin);
+                navController.navigate(R.id.action_signUpFragment_to_signInFragment);
             }
         });
 
@@ -95,7 +113,7 @@ public class SignUpFragment extends Fragment {
     //En este metodo verificamos si los campos no estan vacios
     private void formValidate() {
         if (!signupEmail.getText().toString().isEmpty() || !signupPassword.getText().toString().isEmpty() || !signupName.getText().toString().isEmpty()){
-            //Si los campos no estan vacios  las contraseñas conciden mostramos el toast de registro
+            //Si los campos no estan vacios  las contraseñas coinciden mostramos el toast de registro
             if (arePasswordEquals()){
                 signUp();
             } else {
@@ -114,9 +132,10 @@ public class SignUpFragment extends Fragment {
     private void signUp(){
         //Toast.makeText(getActivity().getApplicationContext(), "Bienvenido has sido registrado", Toast.LENGTH_SHORT).show();
 
-        String email = signupEmail.getText().toString();
-        String password = signupPassword.getText().toString();
-//        String name = signupName.getText().toString();
+        email = signupEmail.getText().toString();
+        password = signupPassword.getText().toString();
+        name = signupName.getText().toString();
+        city = signupSpinner.getSelectedItem().toString();
 
         Log.d(TAG, email);
         Log.d(TAG, password);
@@ -131,70 +150,42 @@ public class SignUpFragment extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
 
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            updateUserProfile(user);
+                            currentUser = mAuth.getCurrentUser();
+                            //updateUserProfile();
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            //updateUI();
                         }
 
-                        // ...
+                        updateUI();
+
                     }
                 });
 
 
     }
 
-    private void updateUserProfile(FirebaseUser user){
-
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(signupName.getText().toString()).build();
-
-        user.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User profile updated.");
-
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                            userStore = User.getInstance();
-
-                            userStore.setEmail(user.getEmail());
-                            userStore.setName(user.getDisplayName());
-                            userStore.setCity("Alicante City");
 
 
-                            updateUI(user);
-                        }
-                    }
-                });
-    }
-
-
-
-    private void updateUI(FirebaseUser currentUser) {
+    private void updateUI() {
         if(currentUser != null) {
-            getIdToken(currentUser);
+            getIdToken();
         }else{
-            Toast.makeText(getContext(), "Error de registro.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Error de registro en Firebase.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void getIdToken(FirebaseUser currentUser){
-        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private void getIdToken(){
+
         currentUser.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
             public void onComplete(@NonNull Task<GetTokenResult> task) {
                 if (task.isSuccessful()) {
                     String userToken = task.getResult().getToken();
                     // Send token to your backend via HTTPS
-                    // ...
 
-                    userStore.setToken(userToken);
                     createUserDB(userToken);
 
                 } else {
@@ -211,10 +202,24 @@ public class SignUpFragment extends Fragment {
 
     // Esto deberia estar en UserRepository con un metodo createUserDB
     private void createUserDB(String userToken){
+        Log.d(TAG, "userToken: "+userToken);
+
+        userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
+        userViewModel.setUserToken(userToken);
+
+        user = userViewModel.newUser().getValue().getInstance();
+        user.setUid(currentUser.getUid());
+        user.setEmail(currentUser.getEmail());
+        user.setName(name);
+        user.setCity(city);
+        user.setPhotoUrl("");
+
+
+        Toast.makeText(getContext(), "Registrando tus datos...", Toast.LENGTH_LONG).show();
 
         IWebservice iApi = WebserviceBuilder.getInstance().create(IWebservice.class);
 
-        Call<User> call = iApi.createUser(userToken, userStore);
+        Call<User> call = iApi.createUserApi(userViewModel.getUserToken().getValue(), user);
 
         call.enqueue(new Callback<User>() {
             @Override
@@ -224,26 +229,24 @@ public class SignUpFragment extends Fragment {
                     return;
                 }
 
-                //Toast.makeText(getContext(), "TODO OK: "+response.body(), Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "TODO OK: "+response.body());
-                loadApp();
+                //Toast.makeText(getContext(), "OK: "+response.code(), Toast.LENGTH_SHORT).show();
+
+                Log.d(TAG, "USUARIO CREADO: "+response.body());
+                userViewModel.setUserData(user);
+                gotoAuth();
 
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+
                 Toast.makeText(getContext(), "Failure: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
-
-
-
-    private void loadApp(){
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
+    private void gotoAuth(){
+        navController.navigate(R.id.authFragment);
     }
 }

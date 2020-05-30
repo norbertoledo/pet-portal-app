@@ -18,24 +18,21 @@ public class LinksViewModel extends ViewModel {
 
     private LiveData<List<Link>> mLinks;
     private LinksRepo linksRepo;
-    private User user;
 
 
-
-    public void init(){
+    public void init(String token){
 
         if(mLinks != null){
             return;
         }
-
-        user = User.getInstance();
-        linksRepo = new LinksRepo();
-        mLinks = linksRepo.getLinksRepo( user.getToken() );
+        Log.d(TAG,"INIT LINKS: ");
+        linksRepo = LinksRepo.getInstance();
+        mLinks = linksRepo.getLinksRepo( token );
     }
 
     public LiveData<List<Link>> getLinksVM(){
-
         // Buscar listado en el repositorio
+        Log.d(TAG,"GET LINKS: ");
         return mLinks;
     }
 

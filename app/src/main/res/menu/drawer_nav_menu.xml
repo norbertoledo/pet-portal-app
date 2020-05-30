@@ -5,36 +5,39 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/homeFragment"
             android:icon="@drawable/ic_home"
             android:title="Home"
+            android:checkable="true"
+            android:checked="true"
             />
         <item
-            android:id="@+id/nav_services"
+            android:id="@+id/servicesFragment"
             android:icon="@drawable/ic_services"
             android:title="Servicios"
             />
         <item
-            android:id="@+id/nav_places"
+            android:id="@+id/placesFragment"
             android:icon="@drawable/ic_places"
             android:title="Lugares"
             />
         <item
-            android:id="@+id/nav_tips"
+            android:id="@+id/tipsFragment"
             android:icon="@drawable/ic_tips"
             android:title="Tips"
             />
         <item
-            android:id="@+id/nav_links"
+            android:id="@+id/linksFragment"
             android:icon="@drawable/ic_info_links"
             android:title="Links"
             />
     </group>
 
+
     <item android:title="Perfil">
         <menu>
             <item
-                android:id="@+id/nav_profile"
+                android:id="@+id/profileFragment"
                 android:icon="@drawable/ic_profile"
                 android:title="Perfil"
                 />

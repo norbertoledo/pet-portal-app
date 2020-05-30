@@ -1,6 +1,5 @@
 package com.norbertoledo.petportal.ui.auth;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -23,17 +24,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.norbertoledo.petportal.R;
-import com.norbertoledo.petportal.ui.app.MainActivity;
 
 import com.norbertoledo.petportal.models.User;
+import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
 public class SignInFragment extends Fragment {
 
     private static final String TAG = "SIGN IN";
 
     private FirebaseAuth mAuth;
-    private User userStore;
 
+    private FirebaseUser currentUser;
+    private User user;
+    private UserViewModel userViewModel;
 
 
     private EditText signinEmail, signinPassword;
@@ -56,7 +59,7 @@ public class SignInFragment extends Fragment {
         signinBtnLogin = view.findViewById(R.id.signinBtnLogin);
         signinBtnRegister = view.findViewById(R.id.signinBtnRegister);
 
-        navController = Navigation.findNavController(getActivity(), R.id.nav_host_auth);
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         return view;
     }
@@ -75,7 +78,7 @@ public class SignInFragment extends Fragment {
         signinBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_fragment_signin_to_fragment_signup);
+                navController.navigate(R.id.action_signInFragment_to_signUpFragment);
             }
         });
 
@@ -102,49 +105,18 @@ public class SignInFragment extends Fragment {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithEmail:success");
-                            updateUI(mAuth.getCurrentUser());
+                            gotoAuth();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            updateUI(null);
+                            Toast.makeText(getContext(), "¡OOOPS! "+ task.getException().getMessage()+"!", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
     }
 
-    private void updateUI(FirebaseUser currentUser) {
-        if(currentUser != null) {
-            Toast.makeText(getContext(), R.string.signin_message_success, Toast.LENGTH_SHORT).show();
-            getIdToken(currentUser);
-        }else{
-            Toast.makeText(getContext(), R.string.signin_message_error, Toast.LENGTH_SHORT).show();
-        }
+    private void gotoAuth(){
+        navController.navigate(R.id.authFragment);
     }
 
-    private void getIdToken(FirebaseUser currentUser){
-        currentUser.getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-            public void onComplete(@NonNull Task<GetTokenResult> task) {
-                if (task.isSuccessful()) {
-                    String userToken = task.getResult().getToken();
-
-                    Toast.makeText(getContext(), R.string.user_message_token_success, Toast.LENGTH_SHORT).show();
-                    userStore = User.getInstance();
-                    userStore.setToken(userToken);
-                    loadApp();
-
-                } else {
-                    Toast.makeText(getContext(), R.string.user_message_token_error, Toast.LENGTH_SHORT).show();
-                    // Handle error -> task.getException();
-                }
-            }
-        });
-    }
-
-
-    private void loadApp(){
-        Intent intent = new Intent(getContext(), MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
-    }
 }

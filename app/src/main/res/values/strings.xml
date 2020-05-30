@@ -4,6 +4,14 @@
     <!-- DRAWER MENU -->
     <string name="navigation_drawer_open">Abrir Menu</string>
     <string name="navigation_drawer_close">Cerrar Menu</string>
+    <string name="navigation_drawer_image">Imagen de Perfil</string>
+    <string name="navigation_drawer_name">Pet Portal</string>
+    <string name="navigation_drawer_email">info@petportal.com</string>
+
+    <!-- AUTH -->
+    <string name="auth_text_validate">Validando usuario</string>
+    <string name="auth_text_error">Usuario no logueado</string>
+    <string name="auth_text_load">Cargando usuario</string>
 
     <!-- SIGN IN FORM -->
     <string name="signin_text_title">Ingresar</string>
@@ -31,6 +39,12 @@
     <!-- USER -->
     <string name="user_message_token_success">Token de usuario válido</string>
     <string name="user_message_token_error">No se ha obtenido el token de usuario</string>
+
+    <!-- LOADER -->
+    <string name="loader_message_load">Cargando...</string>
+    <string name="loader_message_save">Guardando...</string>
+    <string name="loader_message_update">Actualizando...</string>
+    <string name="loader_message_validate">Validando...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

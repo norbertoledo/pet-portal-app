@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_orange_dark"
-    tools:context=".ui.app.links.LinksFragment"
+    tools:context=".ui.app.LinksFragment"
+    android:id="@+id/linksFragment"
     >
 
     <androidx.core.widget.NestedScrollView
@@ -26,4 +27,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
