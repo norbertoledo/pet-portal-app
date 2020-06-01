@@ -65,6 +65,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
+    // CROP
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
     def lifecycle_version = "2.2.0"
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"

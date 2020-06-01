@@ -9,16 +9,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.norbertoledo.petportal.MainActivity;
 import com.norbertoledo.petportal.models.Link;
 import com.norbertoledo.petportal.R;
-import com.norbertoledo.petportal.ui.utils.Loader;
-import com.norbertoledo.petportal.ui.utils.LoaderDialog;
+import com.norbertoledo.petportal.utils.Loader;
+import com.norbertoledo.petportal.utils.LoaderDialog;
 import com.norbertoledo.petportal.viewmodels.LinksViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
 

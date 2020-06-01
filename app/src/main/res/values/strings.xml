@@ -40,11 +40,21 @@
     <string name="user_message_token_success">Token de usuario válido</string>
     <string name="user_message_token_error">No se ha obtenido el token de usuario</string>
 
+    <!-- PROFILE -->
+    <string name="profile_data_update_success">Datos modificados con éxito!</string>
+    <string name="profile_data_update_error">No se ha podido actualizar, reintente...</string>
+    <string name="profile_image_update_success">Foto actualizada con éxito!</string>
+    <string name="profile_image_update_error">No se ha podido actualizar, reintente...</string>
+
     <!-- LOADER -->
     <string name="loader_message_load">Cargando...</string>
     <string name="loader_message_save">Guardando...</string>
     <string name="loader_message_update">Actualizando...</string>
     <string name="loader_message_validate">Validando...</string>
+
+    <!-- PERMISSION -->
+    <string name="permission_success">Aceptado! Ya puede cargar la imagen!</string>
+    <string name="permission_error">Denegado! Debe aceptar los permisos para cargar una imagen</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

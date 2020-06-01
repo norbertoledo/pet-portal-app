@@ -1,4 +1,4 @@
-package com.norbertoledo.petportal.ui.utils;
+package com.norbertoledo.petportal.utils;
 
 import android.app.Activity;
 
