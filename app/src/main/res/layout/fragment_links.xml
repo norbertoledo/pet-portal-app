@@ -5,27 +5,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_orange_dark"
+    android:background="#f0f0f0"
     tools:context=".ui.app.LinksFragment"
     android:id="@+id/linksFragment"
     >
 
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/jsonText"
-            android:layout_width="wrap_content"
+            android:id="@+id/linksTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="links"
-            android:textColor="@android:color/white"
-            android:gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="LINKS DE INTERES"
+            android:textAlignment="center"
+            android:textSize="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.core.widget.NestedScrollView>
+        <ListView
+            android:id="@+id/linksListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="32dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linksTitle"
+            app:layout_constraintVertical_weight="1" />
 
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,5 @@
 package com.norbertoledo.petportal.ui.auth;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,17 +22,23 @@ import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.norbertoledo.petportal.R;
+import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.repositories.webservice.WebserviceBuilder;
 import com.norbertoledo.petportal.repositories.webservice.IWebservice;
 import com.norbertoledo.petportal.models.User;
+import com.norbertoledo.petportal.utils.Loader;
+import com.norbertoledo.petportal.viewmodels.StatesViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,13 +55,14 @@ public class SignUpFragment extends Fragment {
     private EditText signupEmail, signupPassword, signupConfirmPassword, signupName;
     private Button signupBtnLogin, signupBtnRegister;
     private Spinner signupSpinner;
-    private ArrayAdapter<CharSequence> adapter;
+    private ArrayAdapter<String> adapter;
     private NavController navController;
     private String email;
     private String password;
     private String name;
     private String city;
-
+    private StatesViewModel statesViewModel;
+    private View view;
 
     public SignUpFragment(){}
 
@@ -63,7 +70,7 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_signup, container, false);
+        view = inflater.inflate(R.layout.fragment_signup, container, false);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -76,17 +83,42 @@ public class SignUpFragment extends Fragment {
         signupBtnRegister = view.findViewById(R.id.signupBtnRegister);
         signupSpinner = view.findViewById(R.id.signupSpinner);
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.cities_array, android.R.layout.simple_spinner_item);
 
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        signupSpinner.setAdapter(adapter);
 
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
+
+        statesViewModel = new ViewModelProvider(this).get(StatesViewModel.class);
+        statesViewModel.init();
+        statesViewModel.getStates().observe(getActivity(), new Observer<List<State>>() {
+            @Override
+            public void onChanged(List<State> states) {
+                if(states!= null){
+
+                    int size = states.size();
+
+                    ArrayList<String> arr = new ArrayList<>();
+
+                    for( int i=0; i<size; i++ ){
+                        arr.add(states.get(i).getName());
+                    }
+
+                    // Create an ArrayAdapter using the string array and a default spinner layout
+                    adapter = new ArrayAdapter<String>(
+                            getActivity(),
+                            android.R.layout.simple_spinner_item,
+                            arr
+                    );
+
+                    // Specify the layout to use when the list of choices appears
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    // Apply the adapter to the spinner
+                    signupSpinner.setAdapter(adapter);
+
+                }
+            }
+        });
 
         return view;
     }
@@ -130,34 +162,27 @@ public class SignUpFragment extends Fragment {
     }
 
     private void signUp(){
-        //Toast.makeText(getActivity().getApplicationContext(), "Bienvenido has sido registrado", Toast.LENGTH_SHORT).show();
 
         email = signupEmail.getText().toString();
         password = signupPassword.getText().toString();
         name = signupName.getText().toString();
         city = signupSpinner.getSelectedItem().toString();
 
-        Log.d(TAG, email);
-        Log.d(TAG, password);
-
-        //progressBar.setVisibility(View.VISIBLE);
+        Loader.show(getActivity(), R.id.signupFragment, R.string.signup_process);
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-
                             currentUser = mAuth.getCurrentUser();
-                            //updateUserProfile();
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                            //updateUI();
+                            String error = R.string.signup_error+task.getException().getMessage();
+                            Snackbar.make(view, error, Snackbar.LENGTH_LONG).show();
                         }
 
                         updateUI();
@@ -174,7 +199,7 @@ public class SignUpFragment extends Fragment {
         if(currentUser != null) {
             getIdToken();
         }else{
-            Toast.makeText(getContext(), "Error de registro en Firebase.", Toast.LENGTH_SHORT).show();
+            Snackbar.make(view, R.string.firebase_error_user, Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -185,11 +210,10 @@ public class SignUpFragment extends Fragment {
                 if (task.isSuccessful()) {
                     String userToken = task.getResult().getToken();
                     // Send token to your backend via HTTPS
-
                     createUserDB(userToken);
 
                 } else {
-                    Toast.makeText(getContext(), "No se pudo obtener TOKEN.", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(view, R.string.firebase_error_token, Snackbar.LENGTH_LONG).show();
                     // Handle error -> task.getException();
                 }
             }
@@ -215,8 +239,6 @@ public class SignUpFragment extends Fragment {
         user.setPhotoUrl("");
 
 
-        Toast.makeText(getContext(), "Registrando tus datos...", Toast.LENGTH_LONG).show();
-
         IWebservice iApi = WebserviceBuilder.getInstance().create(IWebservice.class);
 
         Call<User> call = iApi.createUserApi(userViewModel.getUserToken().getValue(), user);
@@ -228,9 +250,9 @@ public class SignUpFragment extends Fragment {
                     Toast.makeText(getContext(), "Not successful "+response.code(), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                Loader.hide();
 
-                //Toast.makeText(getContext(), "OK: "+response.code(), Toast.LENGTH_SHORT).show();
-
+                Snackbar.make(view, R.string.signup_success, Snackbar.LENGTH_SHORT).show();
                 Log.d(TAG, "USUARIO CREADO: "+response.body());
                 userViewModel.setUserData(user);
                 gotoAuth();

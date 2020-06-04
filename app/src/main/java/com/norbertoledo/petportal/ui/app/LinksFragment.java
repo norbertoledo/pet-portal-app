@@ -1,10 +1,16 @@
 package com.norbertoledo.petportal.ui.app;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,35 +20,32 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.norbertoledo.petportal.models.Link;
 import com.norbertoledo.petportal.R;
+import com.norbertoledo.petportal.utils.LinksAdapter;
 import com.norbertoledo.petportal.utils.Loader;
-import com.norbertoledo.petportal.utils.LoaderDialog;
 import com.norbertoledo.petportal.viewmodels.LinksViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LinksFragment extends Fragment {
 
     private static final String TAG = "LINKS";
 
-    private TextView jsonTextView;
+    private TextView linksTitle;
+
     private LinksViewModel linksViewModel;
     private UserViewModel userViewModel;
-    private LoaderDialog loader;
+    private ArrayAdapter<Link> adapter;
+    private List<Link> linkList;
+    private ListView linksListView;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_links, container, false);
-        jsonTextView = view.findViewById(R.id.jsonText);
-
-        //loader = LoaderDialog.getInstance(getContext());
-
-        linksViewModel = new ViewModelProvider(getActivity()).get(LinksViewModel.class);
-        userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
-
-
 
         return view;
     }
@@ -51,17 +54,20 @@ public class LinksFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        linksTitle = view.findViewById(R.id.linksTitle);
+        linksListView = view.findViewById(R.id.linksListView);
+
+        linksViewModel = new ViewModelProvider(getActivity()).get(LinksViewModel.class);
+        userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
+
         linksViewModel.init(userViewModel.getUserToken().getValue());
 
-        //loader.show(R.string.loader_message_load);
-        //((MainActivity)getActivity()).showLoader(R.id.linksFragment, R.string.loader_message_load);
         Loader.show(getActivity(), R.id.linksFragment, R.string.loader_message_load);
 
-        linksViewModel.getLinksVM().observe(getActivity(), new Observer<List<Link>>() {
+        linksViewModel.getLinksVM().observe(getViewLifecycleOwner(), new Observer<List<Link>>() {
             @Override
             public void onChanged(@Nullable List<Link> links) {
                 if(links != null){
-                    //((MainActivity)getActivity()).hideLoader();
                     Loader.hide();
                     setView();
                 }
@@ -69,35 +75,27 @@ public class LinksFragment extends Fragment {
         });
     }
 
-
     private void setView(){
 
-        jsonTextView.setText("");
 
+        linkList = linksViewModel.getLinksVM().getValue();
 
-            List<Link> items = linksViewModel.getLinksVM().getValue();
-            int size = items.size();
+        adapter = new LinksAdapter(getActivity(), R.layout.item_list_links, linkList);
 
-            for( int i=0; i<size; i++ ){
+        linksListView.setAdapter(adapter);
 
-                String content = "";
-                content += "nombre: " + items.get(i).getNombre() + "\n";
-                content += "link: " + items.get(i).getLink() + "\n\n\n";
-
-                jsonTextView.append(content);
+        linksListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                openLink(linkList.get(position).getLink());
             }
-            /*
-            for( Link post: mLinksViewModel.getLinksVM().getValue()){
-                String content = "";
-                content += "nombre: " + post.getNombre() + "\n";
-                content += "link: " + post.getLink() + "\n\n\n";
+        });
 
-                jsonTextView.append(content);
-            }
-            */
+    }
 
-
-
+    private void openLink(String url){
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
     }
 
 }

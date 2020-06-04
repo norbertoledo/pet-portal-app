@@ -1,22 +1,16 @@
 package com.norbertoledo.petportal.repositories.webservice;
 
-import android.app.Application;
 import android.util.Log;
 
-import androidx.annotation.MainThread;
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.lifecycle.ViewModelStoreOwner;
 
-import com.norbertoledo.petportal.MainActivity;
 import com.norbertoledo.petportal.models.Link;
+import com.norbertoledo.petportal.models.State;
+import com.norbertoledo.petportal.models.Tip;
 import com.norbertoledo.petportal.models.User;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -47,16 +41,85 @@ public class Webservice {
 
     }
 
+    // GET TIPS
+        final MutableLiveData<List<Tip>> listTips = new MutableLiveData<>();
+    public LiveData<List<Tip>> getTipsWs(String token){
+
+
+        Iws.getTipsApi(token).enqueue(new Callback<List<Tip>>() {
+            @Override
+            public void onResponse(Call<List<Tip>> call, Response<List<Tip>> response) {
+                Log.d(TAG, "RESPONSE TIPS CODE OK: "+String.valueOf(response.code()));
+
+                if(response.body() != null){
+                    listTips.setValue( response.body() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Tip>> call, Throwable t) {
+                listTips.setValue(null);
+            }
+        });
+        return listTips;
+    }
+
+    // GET TIP
+        final MutableLiveData<Tip> tip = new MutableLiveData<>();
+    public MutableLiveData<Tip> getTipWs(String token, String id){
+        Log.d(TAG, "ENVIO ID ->: "+id);
+
+        Iws.getTipApi(token, id).enqueue(new Callback<Tip>() {
+            @Override
+            public void onResponse(Call<Tip> call, Response<Tip> response) {
+                Log.d(TAG, "RESPONSE TIP CODE OK: "+String.valueOf(response.code()));
+
+                if(response.body() != null){
+                    tip.setValue( response.body() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Tip> call, Throwable t) {
+                tip.setValue(null);
+            }
+        });
+        return tip;
+    }
+
+    // GET STATES
+        final MutableLiveData<List<State>> listStates = new MutableLiveData<>();
+    public LiveData<List<State>> getStatesWs(String token){
+
+
+        Iws.getStatesApi(token).enqueue(new Callback<List<State>>() {
+            @Override
+            public void onResponse(Call<List<State>> call, Response<List<State>> response) {
+                Log.d(TAG, "RESPONSE STATES CODE OK: "+String.valueOf(response.code()));
+
+                if(response.body() != null){
+                    listStates.setValue( response.body() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<State>> call, Throwable t) {
+                listStates.setValue(null);
+            }
+        });
+        return listStates;
+    }
+
 
     // GET LINKS
-    public LiveData<List<Link>> getLinksWs(String token){
         final MutableLiveData<List<Link>> listLink = new MutableLiveData<>();
+    public LiveData<List<Link>> getLinksWs(String token){
 
 
         Iws.getLinksApi(token).enqueue(new Callback<List<Link>>() {
             @Override
             public void onResponse(Call<List<Link>> call, Response<List<Link>> response) {
-                Log.d(TAG, "RESPONSE CODE OK: "+String.valueOf(response.code()));
+                Log.d(TAG, "RESPONSE LINKS CODE OK: "+String.valueOf(response.code()));
 
                 if(response.body() != null){
                     listLink.setValue( response.body() );
@@ -71,15 +134,16 @@ public class Webservice {
         return listLink;
     }
 
+
     // GET USER
-    public MutableLiveData<User> getUserWs(String token){
         final MutableLiveData<User> user = new MutableLiveData<>();
+    public MutableLiveData<User> getUserWs(String token){
 
 
         Iws.getUserApi(token).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d(TAG, "RESPONSE CODE OK: "+String.valueOf(response.code()));
+                Log.d(TAG, "RESPONSE GET USER CODE OK: "+String.valueOf(response.code()));
                 if(response.body() != null){
                     user.setValue( response.body() );
                 }
@@ -104,7 +168,7 @@ public class Webservice {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if(String.valueOf(response.code()).equals("200")){
-                    Log.d(TAG, "RESPONSE CODE OK: "+String.valueOf(response.code()));
+                    Log.d(TAG, "RESPONSE UPDATE USER CODE OK: "+String.valueOf(response.code()));
                     userUpdated.setValue(user);
                 }else{
                     Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));

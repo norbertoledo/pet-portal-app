@@ -1,18 +1,24 @@
 package com.norbertoledo.petportal.models;
 
-public class Link {
-
+public class Tip {
+    private String id;
     private String title;
     private String description;
-    private String link;
+    private String image;
 
-    public Link(String title, String description, String link) {
+    public Tip(String id, String title, String description, String image) {
+        this.id = id;
         this.title = title;
         this.description = description;
-        this.link = link;
+        this.image = image;
     }
 
-    public Link() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -31,11 +37,11 @@ public class Link {
         this.description = description;
     }
 
-    public String getLink() {
-        return link;
+    public String getImage() {
+        return image;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setImage(String image) {
+        this.image = image;
     }
 }

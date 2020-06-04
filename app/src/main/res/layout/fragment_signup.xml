@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.auth.SignUpFragment"
     android:theme="@style/AppTheme.NoActionBar"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    android:id="@+id/signupFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"

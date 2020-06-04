@@ -1,8 +1,8 @@
 package com.norbertoledo.petportal.repositories.webservice;
 
-import androidx.arch.core.util.Function;
-
 import com.norbertoledo.petportal.models.Link;
+import com.norbertoledo.petportal.models.State;
+import com.norbertoledo.petportal.models.Tip;
 import com.norbertoledo.petportal.models.User;
 
 import java.util.List;
@@ -11,7 +11,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -23,6 +22,22 @@ import retrofit2.http.Path;
 
 public interface IWebservice {
 
+
+        @GET("tips")
+        Call<List<Tip>> getTipsApi(
+                @Header("Authorization") String authorization
+        );
+
+        @GET("tips/{id}")
+        Call<Tip> getTipApi(
+                @Header("Authorization") String authorization,
+                @Path("id") String id
+        );
+
+        @GET("states")
+        Call<List<State>> getStatesApi(
+                @Header("Authorization") String authorization
+        );
 
         @GET("links")
         Call<List<Link>> getLinksApi(
@@ -49,16 +64,6 @@ public interface IWebservice {
                 @Body User userData
         );
 
-
-        /*
-        @Multipart
-        @POST("uploads")
-        Call<ResponseBody> uploadUserImageApi(
-                @Header("Authorization") String authorization,
-                @Part MultipartBody.Part part,
-                @Part("imageData") RequestBody requestBody
-        );
-        */
 
         @Multipart
         @POST("uploads")

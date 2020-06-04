@@ -78,7 +78,7 @@ public class BitmapTask {
             filesDir = context.getFilesDir();
             imageFile = new File(filesDir, filename);
             OutputStream os = new FileOutputStream(imageFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, os);
+            bitmap.compress(Bitmap.CompressFormat.WEBP, quality, os);
             os.flush();
             os.close();
 

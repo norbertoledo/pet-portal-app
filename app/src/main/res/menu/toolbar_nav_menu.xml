@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/locationItem"
+        android:title="Set Search Location"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_location"
+        app:showAsAction="always"
+        />
+    <!--
+    <item
+        android:id="@+id/infoItem"
+        android:title="Get Info"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_info"
+        app:showAsAction="always"
+        />
+    -->
+</menu>

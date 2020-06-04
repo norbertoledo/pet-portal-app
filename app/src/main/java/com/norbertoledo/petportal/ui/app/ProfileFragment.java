@@ -1,7 +1,6 @@
 package com.norbertoledo.petportal.ui.app;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -10,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
@@ -26,22 +26,27 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.material.snackbar.Snackbar;
 import com.norbertoledo.petportal.R;
+import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.models.User;
 import com.norbertoledo.petportal.repositories.webservice.IWebservice;
 import com.norbertoledo.petportal.repositories.webservice.WebserviceBuilder;
 import com.norbertoledo.petportal.utils.Loader;
 import com.norbertoledo.petportal.utils.BitmapTask;
+import com.norbertoledo.petportal.viewmodels.LocationViewModel;
+import com.norbertoledo.petportal.viewmodels.StatesViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -64,9 +69,11 @@ public class ProfileFragment extends Fragment {
     private TextView profileEmail;
     private EditText profileName;
     private Spinner profileSpinner;
-    private ArrayAdapter<CharSequence> adapter;
+    private ArrayAdapter<String> adapterSpinner;
     private Button profileSave;
     private LiveData<User> user;
+    private StatesViewModel statesViewModel;
+    LocationViewModel locationViewModel;
 
     private View view;
 
@@ -89,24 +96,67 @@ public class ProfileFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         profileImageButton = view.findViewById(R.id.profileImageButton);
         profileEmail = view.findViewById(R.id.profileEmail);
         profileName = view.findViewById(R.id.profileName);
         profileSpinner = view.findViewById(R.id.spinner);
         profileSave = view.findViewById(R.id.profileSave);
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.cities_array, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        profileSpinner.setAdapter(adapter);
 
         // User ViewModel
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
+        userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
+        // Location ViewModel
+        locationViewModel = new ViewModelProvider(getActivity()).get(LocationViewModel.class);
+        // States ViewModel
+        statesViewModel = new ViewModelProvider(getActivity()).get(StatesViewModel.class);
+
+        statesViewModel.init();
+        statesViewModel.getStates().observe(getActivity(), new Observer<List<State>>() {
+            @Override
+            public void onChanged(List<State> states) {
+                if(states!= null){
+
+                    int size = states.size();
+
+                    if( adapterSpinner!=null){
+                        if(adapterSpinner.getCount()!=0){
+                            adapterSpinner.clear();
+                        }
+                    }
+                    ArrayList<String> arr = new ArrayList<>();
+
+                    for( int i=0; i<size; i++ ){
+                        arr.add(states.get(i).getName());
+                    }
+
+                    // Create an ArrayAdapter using the string array and a default spinner layout
+                    adapterSpinner = new ArrayAdapter<String>(
+                            getActivity(),
+                            android.R.layout.simple_spinner_item,
+                            arr
+                    );
+
+                    // Specify the layout to use when the list of choices appears
+                    adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    // Apply the adapter to the spinner
+                    profileSpinner.setAdapter(adapterSpinner);
+
+                    int pos = adapterSpinner.getPosition(userViewModel.getUserData().getValue().getCity());
+                    profileSpinner.setSelection(pos);
+
+                }
+            }
+        });
+
+
 
         profileImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,8 +187,6 @@ public class ProfileFragment extends Fragment {
         });
 
         loadUserInfo();
-
-        return view;
     }
 
     private void loadUserInfo(){
@@ -161,16 +209,22 @@ public class ProfileFragment extends Fragment {
         profileEmail.setText(user.getValue().getEmail());
         profileName.setText(user.getValue().getName());
 
-        int position = adapter.getPosition(user.getValue().getCity());
-        profileSpinner.setSelection(position);
+
+
+
+
     }
 
 
     private void saveUserInfo(){
 
+        String selectedCity = profileSpinner.getSelectedItem().toString();
         User userM = user.getValue();
         userM.setName(profileName.getText().toString());
-        userM.setCity(profileSpinner.getSelectedItem().toString());
+        userM.setCity(selectedCity);
+
+        locationViewModel.setLocation(selectedCity);
+
 
         Loader.show(getActivity(), R.id.profileFragment, R.string.loader_message_update);
 
@@ -288,7 +342,7 @@ public class ProfileFragment extends Fragment {
                         bitmap = BitmapTask.resizeStaticWidth(bitmap, 500, true);
 
                         // Compress Bitmap and write File
-                        File imageFile = BitmapTask.compressToFile(getContext(), filename, bitmap, 70);
+                        File imageFile = BitmapTask.compressToFile(getContext(), filename, bitmap, 80);
 
                         //Send File
                         uploadUserImage(imageFile);

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_dark"
-    tools:context=".ui.app.ServicesFragment">
+    tools:context=".ui.app.ServicesFragment"
+    android:id="@+id/servicesFragment">
 
     <TextView
         android:layout_width="match_parent"

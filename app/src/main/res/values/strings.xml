@@ -32,6 +32,9 @@
     <string name="signup_input_password">Password</string>
     <string name="signup_input_confirm_password">Confirmar Password</string>
     <string name="signup_input_name">Nombre</string>
+    <string name="signup_success">Ha sido registrado con éxito</string>
+    <string name="signup_error">Error en el registro: </string>
+    <string name="signup_process">Registrando sus datos</string>
 
     <!-- VALIDATE FORM -->
     <string name="form_validate_error">Completa todos los campos con un formato válido</string>
@@ -55,6 +58,11 @@
     <!-- PERMISSION -->
     <string name="permission_success">Aceptado! Ya puede cargar la imagen!</string>
     <string name="permission_error">Denegado! Debe aceptar los permisos para cargar una imagen</string>
+
+    <!-- FIREBASE -->
+    <string name="firebase_error_token">No se logró obtener token de usuario. Reintente</string>
+    <string name="firebase_error_user">No se logró realizar el registro. Reintente</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

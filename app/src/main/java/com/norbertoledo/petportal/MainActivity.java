@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +27,9 @@ import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.norbertoledo.petportal.models.User;
+import com.norbertoledo.petportal.utils.LocationDialog;
+import com.norbertoledo.petportal.viewmodels.LocationViewModel;
+import com.norbertoledo.petportal.viewmodels.StatesViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private AppBarConfiguration mAppBarConfiguration;
     private UserViewModel userViewModel;
+    private LocationViewModel locationViewModel;
+    private StatesViewModel statesViewModel;
 
 
 
@@ -66,14 +72,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "****************** CARGO MAIN ACTIVITY ************** ");
         // User ViewModel
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        locationViewModel = new ViewModelProvider(this).get(LocationViewModel.class);
 
+        statesViewModel = new ViewModelProvider(this).get(StatesViewModel.class);
 
         userViewModel.getUserToken().observe(this, new Observer<String>(){
 
             @Override
             public void onChanged(String token) {
                 if(token!=null){
-
+                    statesViewModel.init();
                     loadUserInfo();
 
                 }
@@ -81,6 +89,23 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.toolbar_nav_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.locationItem){
+
+            //LocationDialog.show(MainActivity.this, R.id.nav_host_fragment);
+            LocationDialog.show(MainActivity.this, MainActivity.this);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadUserInfo(){
@@ -92,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if(user!=null){
+                    // Seteo la ciudad
+                    locationViewModel.setLocation( user.getCity() );
                     Log.d(TAG, "USER-> "+user.toString());
                     Log.d(TAG, "USER TOKEN -> "+userViewModel.getUserToken().getValue());
                     String name = user.getName();
@@ -129,10 +156,9 @@ public class MainActivity extends AppCompatActivity {
                             .centerCrop()
                             .error(R.mipmap.ic_launcher_round)
                             .into(headerPhoto);
-
-
-
                 }
+
+
             }
         });
 
@@ -180,6 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void setDrawerAction() {
+
 
         navigationView.setNavigationItemSelectedListener(
 
