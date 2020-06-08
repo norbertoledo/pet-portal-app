@@ -1,31 +1,19 @@
 package com.norbertoledo.petportal.viewmodels;
 
-import android.app.Activity;
-import android.app.Application;
-import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.bumptech.glide.signature.ObjectKey;
-import com.norbertoledo.petportal.MainActivity;
 import com.norbertoledo.petportal.models.User;
 import com.norbertoledo.petportal.repositories.UserRepo;
-import com.norbertoledo.petportal.repositories.webservice.IWebservice;
-import com.norbertoledo.petportal.repositories.webservice.Webservice;
-import com.norbertoledo.petportal.repositories.webservice.WebserviceBuilder;
 
-import java.util.concurrent.ExecutionException;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class UserViewModel extends ViewModel {
     private static final String TAG = "USER VIEWMODEL";
@@ -34,10 +22,9 @@ public class UserViewModel extends ViewModel {
     private MutableLiveData<User> userData;
     private MutableLiveData<String> message;
     private MutableLiveData<User> updateResponse;
+    private MutableLiveData<User> updateImageResponse;
     private MutableLiveData<ObjectKey> imageProfileSignature;
-
     private UserRepo userRepo;
-
 
 
 
@@ -58,7 +45,6 @@ public class UserViewModel extends ViewModel {
     public void resetUserData(){
         userData = null;
         message = null;
-        //clearMessage();
     }
 
     public void setUserData(@Nullable User user){
@@ -66,20 +52,18 @@ public class UserViewModel extends ViewModel {
         userData.setValue(user);
     }
 
-
+    // Get User
     public LiveData<User> getUserData(){
-
         if(userData==null){
             Log.d(TAG,"GET USER DATA (SOY NULL Y BUSCO NUEVA INSTANCIA: "+userData);
             userRepo = UserRepo.getInstance();
             userData = userRepo.getUserRepo(getUserToken().getValue());
         }
-
         Log.d(TAG,"GET USER DATA: "+userData);
         return userData;
     }
 
-
+    // Create User
     public LiveData<User> newUser(){
         if(userData==null){
             userRepo = UserRepo.getInstance();
@@ -89,11 +73,11 @@ public class UserViewModel extends ViewModel {
     }
 
 
+    // Update User Data
     public void updateUserData(final User user){
 
         userRepo = UserRepo.getInstance();
         updateResponse = userRepo.updateUserRepo( getUserToken().getValue(), user );
-
     }
 
     public LiveData<User> updateUserDataResponse(){
@@ -102,7 +86,6 @@ public class UserViewModel extends ViewModel {
         }
         Log.d(TAG,"LLAMO A USER DATA RESPONSE: "+updateResponse.getValue());
         return updateResponse;
-
     }
 
     public void clearUpdateResponse(){
@@ -111,21 +94,24 @@ public class UserViewModel extends ViewModel {
 
 
 
-    public MutableLiveData<String> getMessages(){
-        if(message==null){
-            message = new MutableLiveData<String>();
+    // Update User Image
+    public void updateUserImage(MultipartBody.Part requestImage, RequestBody imageData){
+        userRepo = UserRepo.getInstance();
+        updateImageResponse = userRepo.updateUserImageRepo( getUserToken().getValue(), requestImage, imageData );
+
+    }
+
+    public LiveData<User> updateUserImageResponse(){
+        if(updateImageResponse==null){
+            updateImageResponse = new MutableLiveData<User>();
         }
-        Log.d(TAG,"LLAMO A GET MESSAGE: "+message.getValue());
-        return message;
-    }
-    public void setMessage(String msg){
-        message.setValue(msg);
+        Log.d(TAG,"LLAMO A USER IMAGE RESPONSE: "+updateImageResponse.getValue());
+        return updateImageResponse;
     }
 
-    public void clearMessage() {
-        message.setValue(null);
+    public void clearUpdateImageResponse(){
+        updateImageResponse.setValue(null);
     }
-
 
     public void setImageProfileSignature(ObjectKey signature){
         if(imageProfileSignature==null){
@@ -141,6 +127,22 @@ public class UserViewModel extends ViewModel {
         return imageProfileSignature.getValue();
     }
 
+
+    // Messages
+    public MutableLiveData<String> getMessages(){
+        if(message==null){
+            message = new MutableLiveData<String>();
+        }
+        Log.d(TAG,"LLAMO A GET MESSAGE: "+message.getValue());
+        return message;
+    }
+    public void setMessage(String msg){
+        message.setValue(msg);
+    }
+
+    public void clearMessage() {
+        message.setValue(null);
+    }
 
 }
 

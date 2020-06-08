@@ -1,15 +1,19 @@
 package com.norbertoledo.petportal.models;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class State {
 
-    String name;
-    List<String> cities;
+    private String name;
+    private List<String> cities;
+    private Map<String, Double> latlng = new HashMap<String, Double>();
 
-    public State(String name, List<String> cities) {
+    public State(String name, List<String> cities, Map<String, Double> latlng) {
         this.name = name;
         this.cities = cities;
+        this.latlng = latlng;
     }
 
     public String getName() {
@@ -27,4 +31,13 @@ public class State {
     public void setCities(List<String> cities) {
         this.cities = cities;
     }
+
+    public Map<String, Double> getLatlng() {
+        return latlng;
+    }
+
+    public void setLatlng(Map<String, Double> latlng) {
+        this.latlng = latlng;
+    }
+
 }

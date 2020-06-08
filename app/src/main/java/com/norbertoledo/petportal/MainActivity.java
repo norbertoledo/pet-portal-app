@@ -26,11 +26,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.models.User;
 import com.norbertoledo.petportal.utils.LocationDialog;
 import com.norbertoledo.petportal.viewmodels.LocationViewModel;
 import com.norbertoledo.petportal.viewmodels.StatesViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
     private LocationViewModel locationViewModel;
     private StatesViewModel statesViewModel;
+    private List<State> listStates;
 
 
 
@@ -81,15 +85,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(String token) {
                 if(token!=null){
-                    statesViewModel.init();
-                    loadUserInfo();
 
+                    //loadUserInfo();
+                    loadStates();
                 }
             }
 
         });
 
+    }
+    private void loadStates(){
+        statesViewModel.init();
+        statesViewModel.getStates().observe(this, new Observer<List<State>>(){
 
+            @Override
+            public void onChanged(List<State> states) {
+                if(states!=null){
+                    listStates = states;
+                    Log.d("STATEEEEEEEEEES -> ", String.valueOf(listStates.size()));
+
+                        loadUserInfo();
+
+                }
+            }
+
+        });
     }
 
     @Override
@@ -102,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.locationItem){
 
-            //LocationDialog.show(MainActivity.this, R.id.nav_host_fragment);
             LocationDialog.show(MainActivity.this, MainActivity.this);
         }
         return super.onOptionsItemSelected(item);
@@ -117,8 +136,19 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if(user!=null){
+
+                    String city = user.getCity();
+                    State state = null;
+
+                    for (int i = 0; i < listStates.size() ; i++) {
+                        if(listStates.get(i).getName().equals(city)){
+                            state = listStates.get(i);
+                        }
+                    }
+
                     // Seteo la ciudad
-                    locationViewModel.setLocation( user.getCity() );
+                    locationViewModel.setLocation( state );
+
                     Log.d(TAG, "USER-> "+user.toString());
                     Log.d(TAG, "USER TOKEN -> "+userViewModel.getUserToken().getValue());
                     String name = user.getName();
@@ -170,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration
                 .Builder(
                 R.id.homeFragment,
-                R.id.servicesFragment,
+                R.id.servicesCategoryFragment,
                 R.id.placesFragment,
                 R.id.tipsFragment,
                 R.id.linksFragment
@@ -228,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
 
                             case R.id.servicesFragment:
-                                navController.navigate(R.id.action_global_servicesFragment);
+                                navController.navigate(R.id.action_global_servicesCategoryFragment);
                                 break;
 
                             case R.id.placesFragment:

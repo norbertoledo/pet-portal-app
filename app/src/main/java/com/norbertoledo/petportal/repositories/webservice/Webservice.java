@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.norbertoledo.petportal.models.Link;
+import com.norbertoledo.petportal.models.Place;
+import com.norbertoledo.petportal.models.ServicesCategory;
 import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.models.Tip;
 import com.norbertoledo.petportal.models.User;
@@ -13,6 +15,8 @@ import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,8 +28,6 @@ public class Webservice {
     private static final String TAG = "WEBSERVICE";
     private static Webservice instance;
     private IWebservice Iws;
-    private boolean res;
-    private UserViewModel userViewModel;
 
 
     public static Webservice getInstance(){
@@ -40,6 +42,57 @@ public class Webservice {
         Iws = WebserviceBuilder.getInstance().create(IWebservice.class);
 
     }
+
+    // GET PLACES
+    final MutableLiveData<List<Place>> listPlaces = new MutableLiveData<>();
+    public LiveData<List<Place>> getPlacesWs(String token){
+
+
+        Iws.getPlacesApi(token).enqueue(new Callback<List<Place>>() {
+            @Override
+            public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
+                Log.d(TAG, "RESPONSE PLACES CODE OK: "+String.valueOf(response.code()));
+
+                if(response.body() != null){
+                    listPlaces.setValue( response.body() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Place>> call, Throwable t) {
+                listPlaces.setValue(null);
+            }
+        });
+        return listPlaces;
+    }
+
+
+
+    // GET SERVICES CATEGORIES
+    final MutableLiveData<List<ServicesCategory>> categories = new MutableLiveData<>();
+    public LiveData<List<ServicesCategory>> getServicesCategoryWs(String token){
+
+
+        Iws.getServicesCategoryApi(token).enqueue(new Callback<List<ServicesCategory>>() {
+            @Override
+            public void onResponse(Call<List<ServicesCategory>> call, Response<List<ServicesCategory>> response) {
+                Log.d(TAG, "RESPONSE SERVICES CATEGORIES CODE OK: "+String.valueOf(response.code()));
+
+                if(response.body() != null){
+                    categories.setValue( response.body() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ServicesCategory>> call, Throwable t) {
+                categories.setValue(null);
+            }
+        });
+        return categories;
+    }
+
+
+
 
     // GET TIPS
         final MutableLiveData<List<Tip>> listTips = new MutableLiveData<>();
@@ -104,6 +157,7 @@ public class Webservice {
 
             @Override
             public void onFailure(Call<List<State>> call, Throwable t) {
+                Log.d(TAG, "RESPONSE STATES CODE ERROR: "+t.getMessage());
                 listStates.setValue(null);
             }
         });
@@ -136,8 +190,8 @@ public class Webservice {
 
 
     // GET USER
-        final MutableLiveData<User> user = new MutableLiveData<>();
     public MutableLiveData<User> getUserWs(String token){
+        final MutableLiveData<User> user = new MutableLiveData<>();
 
 
         Iws.getUserApi(token).enqueue(new Callback<User>() {
@@ -158,10 +212,9 @@ public class Webservice {
         return user;
     }
 
-    // UPDATE USER
-
+    // UPDATE USER DATA
     public MutableLiveData<User> updateUserWs(String token, final User user){
-    final MutableLiveData<User> userUpdated = new MutableLiveData<>();
+        final MutableLiveData<User> userUpdated = new MutableLiveData<>();
 
         Iws.updateUserApi(token, user).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -182,6 +235,32 @@ public class Webservice {
             }
         });
     return userUpdated;
+    }
+
+
+    // UPDATE USER IMAGE
+    final MutableLiveData<User> userImageUpdated = new MutableLiveData<>();
+    public MutableLiveData<User> updateUserImageWs(String token, MultipartBody.Part requestImage, RequestBody imageData){
+
+        Iws.updateUserImageApi(token, requestImage, imageData).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                if(String.valueOf(response.code()).equals("200")){
+                    Log.d(TAG, "RESPONSE UPDATE USER CODE OK: "+String.valueOf(response.code()));
+                    userImageUpdated.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d(TAG, "RESPONSE BODY ERROR: "+t.getMessage());
+            }
+        });
+        return userImageUpdated;
     }
 
 }

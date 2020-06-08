@@ -65,6 +65,7 @@ public class LocationDialog extends Fragment {
     private static ListView listView;
     private static StatesViewModel statesViewModel;
     private static LocationViewModel locationViewModel;
+    private static List<State> listStates;
     private static List<String> arrStates;
     private static ArrayAdapter<String> adapter;
     private static Button btnDismiss;
@@ -95,6 +96,7 @@ public class LocationDialog extends Fragment {
             public void onChanged(List<State> states) {
                 if(states!= null){
 
+                    listStates = states;
                     int size = states.size();
                     for( int i=0; i<size; i++ ){
                         arrStates.add(states.get(i).getName());
@@ -112,7 +114,7 @@ public class LocationDialog extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                locationViewModel.setLocation(arrStates.get(position));
+                locationViewModel.setLocation(listStates.get(position));
                 LocationDialog.hide();
             }
         });

@@ -1,6 +1,7 @@
 package com.norbertoledo.petportal.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.norbertoledo.petportal.R;
-import com.norbertoledo.petportal.models.Tip;
+import com.norbertoledo.petportal.models.ServicesCategory;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.Holder> {
+public class ServicesCategoryAdapter extends RecyclerView.Adapter<ServicesCategoryAdapter.Holder> {
 
     private Context context;
     private int resource;
-    private List<Tip> listItems;
-    private OnItemClickListener mOnItemClickListener;
+    private List<ServicesCategory> listItems;
+    private ServicesCategoryAdapter.OnItemClickListener mOnItemClickListener;
 
-    public TipsAdapter(Context context, int resource, List<Tip> listItems, OnItemClickListener onItemClickListener) {
+    public ServicesCategoryAdapter(Context context, int resource, List<ServicesCategory> listItems, ServicesCategoryAdapter.OnItemClickListener onItemClickListener) {
         this.context = context;
         this.resource = resource;
         this.listItems = listItems;
@@ -34,22 +34,22 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.Holder> {
 
     @NonNull
     @Override
-    public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ServicesCategoryAdapter.Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View convertView = LayoutInflater.from(context).inflate(resource, null);
 
-        Holder holder = new Holder(convertView, mOnItemClickListener);
+        ServicesCategoryAdapter.Holder holder = new ServicesCategoryAdapter.Holder(convertView, mOnItemClickListener);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int position) {
+    public void onBindViewHolder(@NonNull ServicesCategoryAdapter.Holder holder, int position) {
 
-        Tip item = listItems.get(position);
+        ServicesCategory item = listItems.get(position);
 
-        holder.title.setText( item.getTitle() );
-        holder.description.setText( item.getDescription() );
+        holder.title.setText( item.getName() );
+        holder.background.setBackgroundColor( Color.parseColor( item.getColor() ) );
         Glide.with(context).load(item.getImage()).centerCrop().into(holder.image);
         Log.d("IMAGEN THUMB ->",item.getImage());
     }
@@ -62,15 +62,16 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.Holder> {
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         ImageView image;
-        TextView title, description;
-        OnItemClickListener onItemClickListener;
+        TextView title;
+        View background;
+        ServicesCategoryAdapter.OnItemClickListener onItemClickListener;
 
-        public Holder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
+        public Holder(@NonNull View itemView, ServicesCategoryAdapter.OnItemClickListener onItemClickListener) {
             super(itemView);
 
-            image = itemView.findViewById(R.id.item_tips_image);
-            title = itemView.findViewById(R.id.item_tips_title);
-            description = itemView.findViewById(R.id.item_tips_description);
+            image = itemView.findViewById(R.id.item_services_category_image);
+            title = itemView.findViewById(R.id.item_services_category_title);
+            background = itemView.findViewById(R.id.item_services_category_background);
             this.onItemClickListener = onItemClickListener;
 
             itemView.setOnClickListener(this);
@@ -85,7 +86,4 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.Holder> {
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
-
 }
-
-

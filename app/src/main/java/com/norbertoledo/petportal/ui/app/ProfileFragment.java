@@ -58,9 +58,7 @@ import retrofit2.Retrofit;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ProfileFragment extends Fragment {
 
     private static final String TAG = "PROFILE FRAGMENT";
@@ -73,6 +71,7 @@ public class ProfileFragment extends Fragment {
     private Button profileSave;
     private LiveData<User> user;
     private StatesViewModel statesViewModel;
+    private List<State> listStates;
     LocationViewModel locationViewModel;
 
     private View view;
@@ -122,7 +121,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChanged(List<State> states) {
                 if(states!= null){
-
+                    listStates = states;
                     int size = states.size();
 
                     if( adapterSpinner!=null){
@@ -182,7 +181,7 @@ public class ProfileFragment extends Fragment {
         profileSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveUserInfo();
+                updateUserInfo();
             }
         });
 
@@ -197,7 +196,6 @@ public class ProfileFragment extends Fragment {
 
         String photoUrl = user.getValue().getPhotoUrl();
 
-
         Glide.with(getContext())
                 .load(photoUrl)
                 .signature(userViewModel.getImageProfileSignature())
@@ -209,22 +207,17 @@ public class ProfileFragment extends Fragment {
         profileEmail.setText(user.getValue().getEmail());
         profileName.setText(user.getValue().getName());
 
-
-
-
-
     }
 
 
-    private void saveUserInfo(){
-
+    private void updateUserInfo(){
+        int selectedIndexState = profileSpinner.getSelectedItemPosition();
         String selectedCity = profileSpinner.getSelectedItem().toString();
         User userM = user.getValue();
         userM.setName(profileName.getText().toString());
         userM.setCity(selectedCity);
 
-        locationViewModel.setLocation(selectedCity);
-
+        locationViewModel.setLocation(listStates.get(selectedIndexState));
 
         Loader.show(getActivity(), R.id.profileFragment, R.string.loader_message_update);
 
@@ -247,56 +240,46 @@ public class ProfileFragment extends Fragment {
     private void uploadUserImage(File selectedImageFile){
 
         File file = selectedImageFile;
-
-        Retrofit ws = WebserviceBuilder.getInstance();
-
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part requestImage = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
-
         RequestBody imageData = RequestBody.create(MediaType.parse("multipart/form-data"), "This is a new profile image");
-
-        String token = userViewModel.getUserToken().getValue();
-
-        IWebservice iws = ws.create(IWebservice.class);
-        Call call = iws.uploadUserImageApi(token, requestImage, imageData);
 
         Loader.show(getActivity(), R.id.profileFragment, R.string.loader_message_update);
 
-        call.enqueue(new Callback<User>() {
+        userViewModel.updateUserImage(requestImage, imageData);
+
+        userViewModel.updateUserImageResponse().observe(getActivity(), new Observer<User>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onChanged(User user) {
+                if(user!=null){
+                    String photo = user.getPhotoUrl();
 
-                String photo = response.body().getPhotoUrl();
+                    Snackbar.make(view, R.string.profile_image_update_success, Snackbar.LENGTH_LONG).show();
 
-                Snackbar.make(view, R.string.profile_image_update_success, Snackbar.LENGTH_LONG).show();
+                    ObjectKey signature = new ObjectKey(String.valueOf(System.currentTimeMillis()));
 
-                ObjectKey signature = new ObjectKey(String.valueOf(System.currentTimeMillis()));
+                    DrawableCrossFadeFactory factory =
+                            new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
 
-                DrawableCrossFadeFactory factory =
-                        new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
+                    Glide.with(getContext())
+                            .load(photo)
+                            .transition(withCrossFade(factory))
+                            .signature(signature)
+                            .placeholder(profileImageButton.getDrawable())
+                            .centerCrop()
+                            .into(profileImageButton);
 
-                Glide.with(getContext())
-                        .load(photo)
-                        .transition(withCrossFade(factory))
-                        .signature(signature)
-                        .placeholder(profileImageButton.getDrawable())
-                        .centerCrop()
-                        .into(profileImageButton);
+                    userViewModel.setImageProfileSignature(signature);
+                    User mUser = userViewModel.getUserData().getValue();
+                    mUser.setPhotoUrl(photo);
+                    userViewModel.setUserData(mUser);
 
-                userViewModel.setImageProfileSignature(signature);
-                User user = userViewModel.getUserData().getValue();
-                user.setPhotoUrl(photo);
-                userViewModel.setUserData(user);
-
-                Loader.hide();
-
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Snackbar.make(view, R.string.profile_image_update_error, Snackbar.LENGTH_LONG).show();
+                    Loader.hide();
+                    userViewModel.clearUpdateImageResponse();
+                }
             }
         });
+
     }
 
 
@@ -309,7 +292,6 @@ public class ProfileFragment extends Fragment {
                 selectImage();
             }else{
                 Snackbar.make(view, R.string.permission_error, Snackbar.LENGTH_LONG).show();
-
             }
         }
     }

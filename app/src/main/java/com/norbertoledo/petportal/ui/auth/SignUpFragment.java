@@ -222,9 +222,7 @@ public class SignUpFragment extends Fragment {
 
 
 
-
-
-    // Esto deberia estar en UserRepository con un metodo createUserDB
+    // Crea usuario
     private void createUserDB(String userToken){
         Log.d(TAG, "userToken: "+userToken);
 

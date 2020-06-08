@@ -35,8 +35,8 @@ public class TipFragment extends Fragment {
     private UserViewModel userViewModel;
     private ImageView tipImage;
     private TextView tipTitle;
-    //private TextView tipDescription;
-    private WebView tipDescription;
+    private TextView tipDescription;
+    //private WebView tipDescription;
     private Tip tip;
 
 
@@ -60,15 +60,11 @@ public class TipFragment extends Fragment {
 
 
 
-        //tipsViewModel.initTip(userViewModel.getUserToken().getValue());
-
         Loader.show(getActivity(), R.id.tipFragment, R.string.loader_message_load);
 
         tipsViewModel.getTip(userViewModel.getUserToken().getValue()).observe(getViewLifecycleOwner(), new Observer<Tip>() {
             @Override
             public void onChanged(Tip tip) {
-                //Log.d("FRAGMENT CHANGE: ", "TIP ID: "+tip.getId() );
-                //Log.d("FRAGMENT CHANGE: ", "SELECTED TIP ID: "+tipsViewModel.getSelectedTip() );
                 if(tip!=null && tip.getId().equals(tipsViewModel.getSelectedTip())){
                     Loader.hide();
                     setView();
@@ -83,8 +79,12 @@ public class TipFragment extends Fragment {
 
         Glide.with(getContext()).load(tip.getImage()).centerCrop().into(tipImage);
         tipTitle.setText( tip.getTitle() );
-        //tipDescription.setText(Html.fromHtml(tip.getDescription()) );
 
+        // HTML TEXT
+        tipDescription.setText(Html.fromHtml(tip.getDescription()) );
+
+        /*
+        // WEB VIEW
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading Data...");
         progressDialog.setCancelable(false);
@@ -101,6 +101,7 @@ public class TipFragment extends Fragment {
                 }
             }
         });
+        */
     }
 
     /*

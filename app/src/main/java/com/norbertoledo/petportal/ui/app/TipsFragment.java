@@ -5,9 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.norbertoledo.petportal.R;
@@ -33,7 +29,6 @@ public class TipsFragment extends Fragment implements TipsAdapter.OnItemClickLis
 
     private UserViewModel userViewModel;
     private TipsViewModel tipsViewModel;
-    private TextView tipsTitle;
     private List<Tip> tipList;
     private RecyclerView tipsRecyclerView;
     private TipsAdapter adapter;
@@ -55,13 +50,10 @@ public class TipsFragment extends Fragment implements TipsAdapter.OnItemClickLis
 
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
-        tipsTitle = view.findViewById(R.id.tipsTitle);
         tipsRecyclerView = view.findViewById(R.id.tipsRecyclerView);
 
-        int gridColumnCount = getResources().getInteger(R.integer.grid_column_count);
+        int gridColumnCount = getResources().getInteger(R.integer.tips_grid_column_count);
 
-        // List
-        //manager = new LinearLayoutManager(getActivity());
         // Grid
         manager = new GridLayoutManager(getActivity(), gridColumnCount);
 

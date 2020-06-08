@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.norbertoledo.petportal.R;
+import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.viewmodels.LocationViewModel;
 
 public class ServicesFragment extends Fragment {
@@ -36,11 +37,11 @@ public class ServicesFragment extends Fragment {
 
         locationViewModel = new ViewModelProvider(getActivity()).get(LocationViewModel.class);
 
-        locationViewModel.getLocation().observe(getViewLifecycleOwner(), new Observer<String>() {
+        locationViewModel.getLocation().observe(getViewLifecycleOwner(), new Observer<State>() {
             @Override
-            public void onChanged(String location) {
-                Log.d("SERVICES FRAGMENT -> ", location);
-                Toast.makeText(getContext(), "SERVICE-> "+location, Toast.LENGTH_SHORT).show();
+            public void onChanged(State location) {
+                Log.d("SERVICES FRAGMENT -> ", location.getName());
+                Toast.makeText(getContext(), "SERVICES-> "+location.getName(), Toast.LENGTH_SHORT).show();
             }
         });
 

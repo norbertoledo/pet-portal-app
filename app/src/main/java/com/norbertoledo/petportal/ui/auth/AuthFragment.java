@@ -65,7 +65,6 @@ public class AuthFragment extends Fragment {
 
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
-
         authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
         authViewModel.getAuthMessage().observe(getActivity(), new Observer<Integer>() {
             @Override
@@ -77,14 +76,7 @@ public class AuthFragment extends Fragment {
 
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
 
-
-
-        //GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageview);
-
         Glide.with(this).load(R.drawable.loading_dog).into(authGif);
-
-
-
 
         return view;
     }
@@ -138,9 +130,7 @@ public class AuthFragment extends Fragment {
                 Log.d(TAG, "****************** GET USER CHANGED ************** ");
                 Log.d(TAG, "****************** USER "+user);
                 if(user!=null){
-                    //Toast.makeText(getContext(), "Hola "+ user.getName()+"!", Toast.LENGTH_SHORT).show();
                     Snackbar.make(view, "Hola "+ user.getName()+"!", Snackbar.LENGTH_LONG).show();
-
                     loadApp();
                 }
             }

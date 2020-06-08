@@ -1,6 +1,8 @@
 package com.norbertoledo.petportal.repositories.webservice;
 
 import com.norbertoledo.petportal.models.Link;
+import com.norbertoledo.petportal.models.Place;
+import com.norbertoledo.petportal.models.ServicesCategory;
 import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.models.Tip;
 import com.norbertoledo.petportal.models.User;
@@ -22,6 +24,17 @@ import retrofit2.http.Path;
 
 public interface IWebservice {
 
+
+
+        @GET("services/categories")
+        Call<List<ServicesCategory>> getServicesCategoryApi(
+                @Header("Authorization") String authorization
+        );
+
+        @GET("places")
+        Call<List<Place>> getPlacesApi(
+                @Header("Authorization") String authorization
+        );
 
         @GET("tips")
         Call<List<Tip>> getTipsApi(
@@ -67,7 +80,7 @@ public interface IWebservice {
 
         @Multipart
         @POST("uploads")
-        Call<User> uploadUserImageApi(
+        Call<User> updateUserImageApi(
                 @Header("Authorization") String authorization,
                 @Part MultipartBody.Part image,
                 @Part("imageData") RequestBody imageData

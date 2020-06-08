@@ -21,10 +21,9 @@ public class TipsViewModel extends ViewModel {
     private LiveData<List<Tip>> tips;
     private TipRepo tipRepo;
     private TipsRepo tipsRepo;
-
-
-
-
+    private String selectedTipId;
+    private ArrayList<Tip> historyTips = new ArrayList<>();
+    private boolean isExist = false;
 
 
     public void initTips(String token){
@@ -45,13 +44,7 @@ public class TipsViewModel extends ViewModel {
     }
 
 
-    private String selectedTipId;
-    private ArrayList<Tip> historyTips = new ArrayList<>();
-    private boolean isExist = false;
-
-
     public LiveData<Tip> getTip(String token){
-
         isExist = false;
         for (int i = 0; i < historyTips.size(); i++) {
             if(historyTips.get(i).getId().equals( selectedTipId ) ){

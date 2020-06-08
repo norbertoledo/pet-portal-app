@@ -1,11 +1,8 @@
 package com.norbertoledo.petportal.models;
 
-import android.net.Uri;
-
 public class User {
 
     private static User instance;
-
     private String uid;
     private String token;
     private String name;

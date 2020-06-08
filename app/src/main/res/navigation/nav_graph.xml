@@ -66,16 +66,20 @@
         android:id="@+id/homeFragment"
         android:name="com.norbertoledo.petportal.ui.app.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/servicesFragment"
         android:name="com.norbertoledo.petportal.ui.app.ServicesFragment"
         android:label="Servicios"
-        tools:layout="@layout/fragment_services" />
+        tools:layout="@layout/fragment_services" >
+        <action
+            android:id="@+id/action_servicesFragment_to_serviceFragment2"
+            app:destination="@id/serviceFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/placesFragment"
         android:name="com.norbertoledo.petportal.ui.app.PlacesFragment"
@@ -113,15 +117,6 @@
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right"
         app:popUpTo="@id/nav_graph"
-        app:popUpToInclusive="true" />
-    <action
-        android:id="@+id/action_global_servicesFragment"
-        app:destination="@id/servicesFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:launchSingleTop="true"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
         app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_global_placesFragment"
@@ -167,7 +162,34 @@
     <fragment
         android:id="@+id/tipFragment"
         android:name="com.norbertoledo.petportal.ui.app.TipFragment"
-        android:label="fragment_tip"
+        android:label="Tip"
         tools:layout="@layout/fragment_tip" />
+    <fragment
+        android:id="@+id/servicesCategoryFragment"
+        android:name="com.norbertoledo.petportal.ui.app.ServicesCategoryFragment"
+        android:label="Categorias"
+        tools:layout="@layout/fragment_services_category" >
+        <action
+            android:id="@+id/action_servicesCategoryFragment_to_servicesFragment"
+            app:destination="@id/servicesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_servicesCategoryFragment"
+        app:destination="@id/servicesCategoryFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:launchSingleTop="true"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/serviceFragment"
+        android:name="com.norbertoledo.petportal.ui.app.ServiceFragment"
+        android:label="Servicio"
+        tools:layout="@layout/fragment_service" />
 
 </navigation>

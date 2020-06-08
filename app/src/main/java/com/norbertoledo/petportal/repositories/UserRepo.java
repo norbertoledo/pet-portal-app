@@ -2,18 +2,14 @@ package com.norbertoledo.petportal.repositories;
 
 import android.util.Log;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.norbertoledo.petportal.models.User;
-import com.norbertoledo.petportal.repositories.webservice.IWebservice;
 import com.norbertoledo.petportal.repositories.webservice.Webservice;
-import com.norbertoledo.petportal.repositories.webservice.WebserviceBuilder;
-import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
 
 public class UserRepo {
 
@@ -23,18 +19,12 @@ public class UserRepo {
     private MutableLiveData<User> user;
     private Boolean conn = true;
     private Webservice ws;
-    private boolean res;
-    private IWebservice Iws;
 
     public static UserRepo getInstance() {
         if (instance == null) {
             instance = new UserRepo();
         }
         return instance;
-    }
-
-    public UserRepo() {
-        //Iws = WebserviceBuilder.getInstance().create(IWebservice.class);
     }
 
 
@@ -70,6 +60,19 @@ public class UserRepo {
             // Load data from webservice
             ws = Webservice.getInstance();
             return ws.updateUserWs(token, user);
+        }else{
+            // Load data from cache / Local DB
+            return null;
+        }
+
+    }
+
+    public MutableLiveData<User> updateUserImageRepo(final String token, MultipartBody.Part requestImage, RequestBody imageData) {
+
+        if(conn){
+            // Load data from webservice
+            ws = Webservice.getInstance();
+            return ws.updateUserImageWs(token, requestImage, imageData);
         }else{
             // Load data from cache / Local DB
             return null;
