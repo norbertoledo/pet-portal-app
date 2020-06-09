@@ -2,6 +2,7 @@ package com.norbertoledo.petportal.repositories.webservice;
 
 import com.norbertoledo.petportal.models.Link;
 import com.norbertoledo.petportal.models.Place;
+import com.norbertoledo.petportal.models.Service;
 import com.norbertoledo.petportal.models.ServicesCategory;
 import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.models.Tip;
@@ -29,6 +30,13 @@ public interface IWebservice {
         @GET("services/categories")
         Call<List<ServicesCategory>> getServicesCategoryApi(
                 @Header("Authorization") String authorization
+        );
+
+        @GET("services/{state}/{category}")
+        Call<List<Service>> getServicesApi(
+                @Header("Authorization") String authorization,
+                @Path("state") String state,
+                @Path("category") String category
         );
 
         @GET("places")

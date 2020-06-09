@@ -73,7 +73,7 @@
         android:label="Servicios"
         tools:layout="@layout/fragment_services" >
         <action
-            android:id="@+id/action_servicesFragment_to_serviceFragment2"
+            android:id="@+id/action_servicesFragment_to_serviceFragment"
             app:destination="@id/serviceFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

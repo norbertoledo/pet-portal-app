@@ -18,7 +18,8 @@ public class ServicesCategoryViewModel extends ViewModel {
     private MutableLiveData<ServicesCategory> category;
     private LiveData<List<ServicesCategory>> categories;
     private ServicesCategoryRepo servicesCategoryRepo;
-    private String selectedCategoryId;
+    private String selectedCategoryName;
+    private String selectedCategoryColor;
 
     public void initServicesCategory(String token){
         if(categories != null){
@@ -37,12 +38,20 @@ public class ServicesCategoryViewModel extends ViewModel {
         return categories;
     }
 
-    public String getSelectedCategory() {
-        return selectedCategoryId;
+    public String getSelectedCategoryName() {
+        return selectedCategoryName;
     }
 
-    public void setSelectedCategory(String categoryId) {
-        selectedCategoryId = categoryId;
+    public void setSelectedCategoryName(String categoryName) {
+        selectedCategoryName = categoryName;
+    }
+
+    public String getSelectedCategoryColor() {
+        return selectedCategoryColor;
+    }
+
+    public void setSelectedCategoryColor(String categoryColor) {
+        selectedCategoryColor = categoryColor;
     }
 
 }

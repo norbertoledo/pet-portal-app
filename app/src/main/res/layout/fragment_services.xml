@@ -1,23 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark"
     tools:context=".ui.app.ServicesFragment"
-    android:id="@+id/servicesFragment">
+    android:id="@+id/servicesFragment"
+    android:background="@color/black"
+    >
+
+    <View
+        android:id="@+id/servicesView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue"
+        android:alpha="0.7"/>
 
     <TextView
+        android:id="@+id/servicesErrorText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Services Fragment"
-        android:textSize="30sp"
-        android:textColor="@android:color/white"
+        android:text="error"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_gravity="center"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:alpha="0.6"
+        android:layout_marginHorizontal="30dp"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:background="@color/black"
+            android:alpha="0.8">
+            <TextView
+                android:id="@+id/servicesTextViewLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Buscando en"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:alpha="0.9"/>
+            <Button
+                android:id="@+id/servicesButtonLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="cambiar"
+                android:textSize="10sp"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_round"
+                android:backgroundTint="@color/colorPrimaryDark"
+                />
+
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/servicesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+
+
+</FrameLayout>

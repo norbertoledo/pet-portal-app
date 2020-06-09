@@ -87,8 +87,6 @@ public class TipsFragment extends Fragment implements TipsAdapter.OnItemClickLis
 
         tipsRecyclerView.setAdapter(adapter);
 
-
-
     }
 
     @Override

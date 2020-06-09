@@ -14,18 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.norbertoledo.petportal.R;
-import com.norbertoledo.petportal.models.ServicesCategory;
+import com.norbertoledo.petportal.models.Service;
 
 import java.util.List;
 
-public class ServicesCategoryAdapter extends RecyclerView.Adapter<ServicesCategoryAdapter.Holder> {
+public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Holder> {
 
     private Context context;
     private int resource;
-    private List<ServicesCategory> listItems;
+    private List<Service> listItems;
     private OnItemClickListener mOnItemClickListener;
 
-    public ServicesCategoryAdapter(Context context, int resource, List<ServicesCategory> listItems, OnItemClickListener onItemClickListener) {
+    public ServicesAdapter(Context context, int resource, List<Service> listItems, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.resource = resource;
         this.listItems = listItems;
@@ -46,12 +46,12 @@ public class ServicesCategoryAdapter extends RecyclerView.Adapter<ServicesCatego
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
 
-        ServicesCategory item = listItems.get(position);
+        Service item = listItems.get(position);
 
         holder.title.setText( item.getName() );
-        holder.background.setBackgroundColor( Color.parseColor( item.getColor() ) );
-        Glide.with(context).load(item.getImage()).centerCrop().into(holder.image);
-        //Log.d("IMAGEN THUMB ->",item.getImage());
+        holder.caption.setText( item.getDescription() );
+        Glide.with(context).load(item.getThumb()).centerCrop().into(holder.image);
+        //Log.d("IMAGEN THUMB ->",item.getThumb());
     }
 
     @Override
@@ -63,15 +63,15 @@ public class ServicesCategoryAdapter extends RecyclerView.Adapter<ServicesCatego
 
         ImageView image;
         TextView title;
-        View background;
+        TextView caption;
         OnItemClickListener onItemClickListener;
 
         public Holder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
 
-            image = itemView.findViewById(R.id.item_services_category_image);
-            title = itemView.findViewById(R.id.item_services_category_title);
-            background = itemView.findViewById(R.id.item_services_category_background);
+            image = itemView.findViewById(R.id.item_services_image);
+            title = itemView.findViewById(R.id.item_services_title);
+            caption = itemView.findViewById(R.id.item_services_caption);
             this.onItemClickListener = onItemClickListener;
 
             itemView.setOnClickListener(this);

@@ -20,6 +20,7 @@ import com.norbertoledo.petportal.models.ServicesCategory;
 import com.norbertoledo.petportal.utils.Loader;
 import com.norbertoledo.petportal.utils.ServicesCategoryAdapter;
 import com.norbertoledo.petportal.viewmodels.ServicesCategoryViewModel;
+import com.norbertoledo.petportal.viewmodels.ServicesViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class ServicesCategoryFragment extends Fragment implements ServicesCatego
     private RecyclerView.LayoutManager manager;
     private UserViewModel userViewModel;
     private ServicesCategoryViewModel servicesCategoryViewModel;
+    private ServicesViewModel servicesViewModel;
     private List<ServicesCategory> categoriesList;
     private ServicesCategoryAdapter adapter;
 
@@ -60,7 +62,7 @@ public class ServicesCategoryFragment extends Fragment implements ServicesCatego
 
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         servicesCategoryViewModel = new ViewModelProvider(getActivity()).get(ServicesCategoryViewModel.class);
-
+        servicesViewModel = new ViewModelProvider(getActivity()).get(ServicesViewModel.class);
         servicesCategoryViewModel.initServicesCategory(userViewModel.getUserToken().getValue());
 
         Loader.show(getActivity(), R.id.servicesCategoryFragment, R.string.loader_message_load);
@@ -90,7 +92,8 @@ public class ServicesCategoryFragment extends Fragment implements ServicesCatego
 
     @Override
     public void onItemClick(int position) {
-        servicesCategoryViewModel.setSelectedCategory(categoriesList.get(position).getId());
+        servicesViewModel.setSelectedCategoryName(categoriesList.get(position).getName());
+        servicesViewModel.setSelectedCategoryColor(categoriesList.get(position).getColor());
         navController.navigate(R.id.action_servicesCategoryFragment_to_servicesFragment);
     }
 }

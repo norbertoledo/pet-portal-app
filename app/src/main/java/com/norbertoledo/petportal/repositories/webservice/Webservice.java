@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.norbertoledo.petportal.models.Link;
 import com.norbertoledo.petportal.models.Place;
+import com.norbertoledo.petportal.models.Service;
 import com.norbertoledo.petportal.models.ServicesCategory;
 import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.models.Tip;
@@ -92,10 +93,32 @@ public class Webservice {
     }
 
 
+    // GET SERVICES
+    public LiveData<List<Service>> getServicesWs(String token, String state, String category){
+    final MutableLiveData<List<Service>> services = new MutableLiveData<>();
+
+
+        Iws.getServicesApi(token, state, category).enqueue(new Callback<List<Service>>() {
+            @Override
+            public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
+                Log.d(TAG, "RESPONSE SERVICES CODE OK: "+String.valueOf(response.code()));
+
+                if(response.body() != null){
+                    services.setValue( response.body() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Service>> call, Throwable t) {
+                services.setValue(null);
+            }
+        });
+        return services;
+    }
 
 
     // GET TIPS
-        final MutableLiveData<List<Tip>> listTips = new MutableLiveData<>();
+    final MutableLiveData<List<Tip>> listTips = new MutableLiveData<>();
     public LiveData<List<Tip>> getTipsWs(String token){
 
 
@@ -118,7 +141,7 @@ public class Webservice {
     }
 
     // GET TIP
-        final MutableLiveData<Tip> tip = new MutableLiveData<>();
+    final MutableLiveData<Tip> tip = new MutableLiveData<>();
     public MutableLiveData<Tip> getTipWs(String token, String id){
         Log.d(TAG, "ENVIO ID ->: "+id);
 
@@ -141,7 +164,7 @@ public class Webservice {
     }
 
     // GET STATES
-        final MutableLiveData<List<State>> listStates = new MutableLiveData<>();
+    final MutableLiveData<List<State>> listStates = new MutableLiveData<>();
     public LiveData<List<State>> getStatesWs(String token){
 
 

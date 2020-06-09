@@ -7,9 +7,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class WebserviceBuilder {
 
     private static Retrofit instance;
-    private static String url = "http://10.0.2.2:5001/pet-portal/us-central1/api/";
-    //private static String url = "https://us-central1-pet-portal.cloudfunctions.net/api/";
-
+    //private static String url = "http://10.0.2.2:5001/pet-portal/us-central1/api/";
+    private static String url = "https://us-central1-pet-portal.cloudfunctions.net/api/";
 
 
     // Singleton pattern

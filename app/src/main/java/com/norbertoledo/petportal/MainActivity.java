@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.toolbar_nav_menu, menu);
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+*/
     private void loadUserInfo(){
 
         userViewModel.getUserData().observe(this, new Observer<User>() {
