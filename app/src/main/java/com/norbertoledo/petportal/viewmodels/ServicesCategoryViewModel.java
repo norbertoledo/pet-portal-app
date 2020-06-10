@@ -1,6 +1,5 @@
 package com.norbertoledo.petportal.viewmodels;
 
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -25,13 +24,11 @@ public class ServicesCategoryViewModel extends ViewModel {
         if(categories != null){
             return;
         }
-        Log.d(TAG,"INIT SERVICES CATEGORIES");
         servicesCategoryRepo = ServicesCategoryRepo.getInstance();
         categories = servicesCategoryRepo.getServicesCategoryRepo( token );
     }
 
     public LiveData<List<ServicesCategory>> getServicesCategory(){
-        Log.d(TAG,"GET SERVICES CATEGORIES");
         if(categories == null){
             categories = new MutableLiveData<>();
         }

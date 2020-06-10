@@ -24,13 +24,11 @@ public class PlacesViewModel extends ViewModel {
         if(places != null){
             return;
         }
-        Log.d(TAG,"INIT PLACES: ");
         placesRepo = PlacesRepo.getInstance();
         places = placesRepo.getPlacesRepo( token );
     }
 
     public LiveData<List<Place>> getPlaces(){
-        Log.d(TAG,"GET PLACES: ");
         if(places == null){
             places = new MutableLiveData<>();
         }

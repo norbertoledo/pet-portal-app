@@ -3,21 +3,15 @@ package com.norbertoledo.petportal.utils;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.RequiresApi;
-
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.ReferencePlaces;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 public class PlacesAdapter extends ArrayAdapter<ReferencePlaces> {
@@ -26,8 +20,6 @@ public class PlacesAdapter extends ArrayAdapter<ReferencePlaces> {
     private int resource;
     private List<ReferencePlaces> listItems;
     private int theColor;
-    private int currentWidth;
-
     // Constructor
     public PlacesAdapter(Context context, int resource, List<ReferencePlaces> listItems) {
         super(context, resource, listItems);

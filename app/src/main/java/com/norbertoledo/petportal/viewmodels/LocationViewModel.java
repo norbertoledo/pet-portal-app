@@ -28,4 +28,9 @@ public class LocationViewModel extends ViewModel {
         return location;
     }
 
+    public void resetLocation(){
+        location = null;
+    }
+
+
 }

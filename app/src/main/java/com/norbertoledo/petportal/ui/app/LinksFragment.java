@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,7 +23,6 @@ import com.norbertoledo.petportal.utils.Loader;
 import com.norbertoledo.petportal.viewmodels.LinksViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LinksFragment extends Fragment {

@@ -1,7 +1,5 @@
 package com.norbertoledo.petportal.ui.app;
 
-import android.app.ProgressDialog;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,16 +9,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.Html;
-import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
@@ -39,7 +32,6 @@ public class TipFragment extends Fragment {
     private ImageView tipImage;
     private TextView tipTitle;
     private TextView tipDescription;
-    //private WebView tipDescription;
     private Tip tip;
 
 
@@ -60,8 +52,6 @@ public class TipFragment extends Fragment {
 
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         tipsViewModel = new ViewModelProvider(getActivity()).get(TipsViewModel.class);
-
-
 
         Loader.show(getActivity(), R.id.tipFragment, R.string.loader_message_load);
 
@@ -91,36 +81,6 @@ public class TipFragment extends Fragment {
         // HTML TEXT
         tipDescription.setText(Html.fromHtml(tip.getDescription()) );
 
-        /*
-        // WEB VIEW
-        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading Data...");
-        progressDialog.setCancelable(false);
-
-        tipDescription.loadData( "<html><body>"+tip.getDescription()+"</body></html>", "text/html", "UTF-8" );
-
-        tipDescription.setWebChromeClient(new WebChromeClient() {
-            public void onProgressChanged(WebView view, int progress) {
-                if (progress < 100) {
-                    progressDialog.show();
-                }
-                if (progress == 100) {
-                    progressDialog.dismiss();
-                }
-            }
-        });
-        */
     }
 
-    /*
-    @SuppressWarnings("deprecation")
-    public static Spanned fromHtml(String html) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
-        }
-        else {
-            return Html.fromHtml(html);
-        }
-    }
-    */
 }

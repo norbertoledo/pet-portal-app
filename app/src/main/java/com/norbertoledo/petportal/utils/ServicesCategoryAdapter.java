@@ -2,7 +2,6 @@ package com.norbertoledo.petportal.utils;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +54,7 @@ public class ServicesCategoryAdapter extends RecyclerView.Adapter<ServicesCatego
         holder.background.setBackgroundColor( Color.parseColor( item.getColor() ) );
         DrawableCrossFadeFactory factory = new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
         Glide.with(context).load(item.getImage()).transition(withCrossFade(factory)).centerCrop().into(holder.image);
-        //Log.d("IMAGEN THUMB ->",item.getImage());
+
     }
 
     @Override

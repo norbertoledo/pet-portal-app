@@ -9,17 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
-import com.norbertoledo.petportal.MainActivity;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.viewmodels.LocationViewModel;
@@ -29,36 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LocationDialog extends Fragment {
-/*
-    private static final String TAG = "LOCATION DIALOG";
-    private static LocationDialogFragment fragment;
-    private static FragmentManager fragmentManager;
-    private static FragmentTransaction fragmentTransaction;
-    private static boolean isVisible = false;
-
-    public static void show(Activity activity, int container){
-        isVisible = true;
-        fragmentManager = ((MainActivity) activity).getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragment = new LocationDialogFragment();
-        fragmentTransaction.add(container, fragment);
-        fragmentTransaction.commit();
-
-    }
-
-    public static void hide(){
-        isVisible = false;
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.remove(fragment);
-        fragmentTransaction.commit();
-    }
-
-    public static boolean getIsVisible(){
-        return isVisible;
-    }
-
-
-    */
 
     private static final String TAG = "LOADER";
     private static ProgressDialog dialog;
@@ -127,14 +93,6 @@ public class LocationDialog extends Fragment {
             }
         });
 
-/*
-        location_dialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hide();
-            }
-        });
-*/
 
 
     }

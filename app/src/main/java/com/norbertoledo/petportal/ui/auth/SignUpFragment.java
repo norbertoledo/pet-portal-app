@@ -1,7 +1,6 @@
 package com.norbertoledo.petportal.ui.auth;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +16,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,20 +26,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.State;
-import com.norbertoledo.petportal.repositories.webservice.WebserviceBuilder;
-import com.norbertoledo.petportal.repositories.webservice.IWebservice;
 import com.norbertoledo.petportal.models.User;
 import com.norbertoledo.petportal.utils.Loader;
 import com.norbertoledo.petportal.viewmodels.StatesViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class SignUpFragment extends Fragment {
 

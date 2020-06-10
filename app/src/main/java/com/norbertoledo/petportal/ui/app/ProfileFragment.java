@@ -16,7 +16,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +33,6 @@ import com.google.android.material.snackbar.Snackbar;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.models.User;
-import com.norbertoledo.petportal.repositories.webservice.IWebservice;
-import com.norbertoledo.petportal.repositories.webservice.WebserviceBuilder;
 import com.norbertoledo.petportal.utils.Loader;
 import com.norbertoledo.petportal.utils.BitmapTask;
 import com.norbertoledo.petportal.viewmodels.LocationViewModel;
@@ -191,8 +188,6 @@ public class ProfileFragment extends Fragment {
     private void loadUserInfo(){
 
         user = userViewModel.getUserData();
-
-        Log.d(TAG, "LOAD USER: "+user);
 
         String photoUrl = user.getValue().getPhotoUrl();
 

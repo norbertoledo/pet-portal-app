@@ -1,6 +1,5 @@
 package com.norbertoledo.petportal.repositories;
 
-import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 

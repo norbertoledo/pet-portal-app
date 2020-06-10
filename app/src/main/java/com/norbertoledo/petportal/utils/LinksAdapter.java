@@ -5,15 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.Link;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LinksAdapter extends ArrayAdapter<Link> {
@@ -55,8 +51,6 @@ public class LinksAdapter extends ArrayAdapter<Link> {
 
         // Agregar el contendio a cada elemento del item
 
-        // Imagen -> Utiliza la libreria Glide para cargar una url externa
-        //Glide.with(context).load(link.getImagen()).centerCrop().into(image);
         // Title
         title.setText(link.getTitle());
         // Description

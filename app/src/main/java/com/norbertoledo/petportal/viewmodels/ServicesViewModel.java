@@ -1,6 +1,5 @@
 package com.norbertoledo.petportal.viewmodels;
 
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,7 +17,6 @@ public class ServicesViewModel extends ViewModel {
 
     private static final String TAG = "SERVICES VIEWMODEL";
 
-    private MutableLiveData<Service> service;
     private LiveData<List<Service>> services;
     private ServicesRepo servicesRepo;
     private MutableLiveData<Service> selectedService;
@@ -30,7 +28,8 @@ public class ServicesViewModel extends ViewModel {
     private ArrayList<LiveData<List<Service>>> historyResults = new ArrayList<>();
 
 
-    public LiveData<List<Service>> initServices(String token, String state, String category){
+    public void initServices(String token){
+
         isExist = false;
 
         for (int i = 0; i < historyStateCategory.size(); i++) {
@@ -39,51 +38,32 @@ public class ServicesViewModel extends ViewModel {
                     && historyStateCategory.get(i).get("category").equals( selectedCategoryName )
             ){
                 services = historyResults.get(i);
-                Log.d(TAG, "GET EXIST PREVIOUS SEARCH: ");
                 isExist=true;
             }
         }
 
         if(!isExist) {
-            Log.d(TAG,"INIT SERVICES");
             servicesRepo = ServicesRepo.getInstance();
-            services = servicesRepo.getServicesRepo( token, state, category );
+            services = servicesRepo.getServicesRepo( token, selectedState, selectedCategoryName );
         }
-        /*
-        if(services != null){
-            return;
-        }
-        Log.d(TAG,"INIT SERVICES");
-        servicesRepo = ServicesRepo.getInstance();
-        services = servicesRepo.getServicesRepo( token, state, category );
-         */
-        return services;
+
     }
 
     public LiveData<List<Service>> getServices(){
 
         if(services == null){
             services = new MutableLiveData<List<Service>>();
+            return services;
         }
-
-        Log.d(TAG,"********************************");
-        Log.d(TAG,"GET SERVICES");
-        Log.d(TAG,"SELECTED STATE -> "+selectedState);
-        Log.d(TAG,"SELECTED CATEGORY -> "+selectedCategoryName);
-        Log.d(TAG,"historyStateCategory.size(); -> "+historyStateCategory.size());
 
         isExist=false;
         Map<String, String> newMap = new HashMap<>();
         for (int i = 0; i < historyStateCategory.size(); i++) {
-            Log.d(TAG,"--------------------------------");
-            Log.d(TAG,"historyStateCategory.get(i).get(\"state\") -> "+historyStateCategory.get(i).get("state"));
-            Log.d(TAG,"historyStateCategory.get(i).get(\"category\") -> "+historyStateCategory.get(i).get("category"));
-            Log.d(TAG,"--------------------------------");
+
             if(
                     historyStateCategory.get(i).get("state").equals( selectedState )
                     && historyStateCategory.get(i).get("category").equals( selectedCategoryName )
             ){
-
                 newMap.put("state", selectedState);
                 newMap.put("category", selectedCategoryName);
                 historyStateCategory.set(i, newMap);
@@ -99,17 +79,8 @@ public class ServicesViewModel extends ViewModel {
             historyResults.add(services);
             historyStateCategory.add(newMap);
         }
-        Log.d(TAG,"********************************");
 
         return services;
-
-        /*
-        Log.d(TAG,"GET SERVICES");
-        if(services == null){
-            services = new MutableLiveData<>();
-        }
-        return services;
-        */
 
     }
 

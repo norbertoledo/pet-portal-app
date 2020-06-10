@@ -14,13 +14,10 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.ObjectKey;
@@ -28,7 +25,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.models.User;
-import com.norbertoledo.petportal.utils.LocationDialog;
 import com.norbertoledo.petportal.viewmodels.LocationViewModel;
 import com.norbertoledo.petportal.viewmodels.StatesViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
@@ -141,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     // Seteo la ciudad
-                    locationViewModel.setLocation( state );
+                    if(locationViewModel.getLocation().getValue() == null){
+                        locationViewModel.setLocation( state );
+                    }
 
                     userName = user.getName();
                     userEmail = user.getEmail();
@@ -281,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void logout(){
         userViewModel.resetUserData();
+        locationViewModel.resetLocation();
         mAuth.signOut();
         navController.navigate(R.id.action_global_signInFragment);
     }

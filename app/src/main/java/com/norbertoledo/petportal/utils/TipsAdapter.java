@@ -1,7 +1,6 @@
 package com.norbertoledo.petportal.utils;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.Tip;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -55,7 +53,7 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.Holder> {
         holder.description.setText( item.getDescription() );
         DrawableCrossFadeFactory factory = new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
         Glide.with(context).load(item.getImage()).transition(withCrossFade(factory)).centerCrop().into(holder.image);
-        Log.d("IMAGEN THUMB ->",item.getImage());
+
     }
 
     @Override

@@ -1,16 +1,13 @@
 package com.norbertoledo.petportal.ui.app;
 
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,7 +19,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.norbertoledo.petportal.MainActivity;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.Service;
 import com.norbertoledo.petportal.models.State;
@@ -70,6 +66,7 @@ public class ServicesFragment extends Fragment implements ServicesAdapter.OnItem
         locationViewModel = new ViewModelProvider(getActivity()).get(LocationViewModel.class);
 
 
+
         servicesView = view.findViewById(R.id.servicesView);
         servicesRecyclerView = view.findViewById(R.id.servicesRecyclerView);
         servicesErrorText = view.findViewById(R.id.servicesErrorText);
@@ -80,7 +77,6 @@ public class ServicesFragment extends Fragment implements ServicesAdapter.OnItem
 
         // Grid
         manager = new GridLayoutManager(getActivity(), gridColumnCount);
-
         servicesRecyclerView.setLayoutManager(manager);
 
         servicesButtonLocation.setOnClickListener(new View.OnClickListener() {
@@ -90,9 +86,7 @@ public class ServicesFragment extends Fragment implements ServicesAdapter.OnItem
             }
         });
 
-
-        Loader.show(getActivity(), R.id.servicesFragment, R.string.loader_message_load);
-
+        servicesViewModel.setSelectedState(locationViewModel.getLocation().getValue().getName());
         listenLocation();
 
     }
@@ -102,9 +96,9 @@ public class ServicesFragment extends Fragment implements ServicesAdapter.OnItem
             @Override
             public void onChanged(State location) {
                 if(location!=null){
-                    //Toast.makeText(getContext(), "SERVICES-> "+location.getName(), Toast.LENGTH_SHORT).show();
+                    Loader.show(getActivity(), R.id.servicesFragment, R.string.loader_message_load);
                     servicesViewModel.setSelectedState(location.getName());
-                    servicesViewModel.initServices(userViewModel.getUserToken().getValue(), location.getName(), servicesViewModel.getSelectedCategoryName());
+                    servicesViewModel.initServices(userViewModel.getUserToken().getValue());
                     listenServices();
                 }
             }
@@ -114,9 +108,10 @@ public class ServicesFragment extends Fragment implements ServicesAdapter.OnItem
     public void listenServices(){
         servicesViewModel.getServices().observe(getViewLifecycleOwner(), new Observer<List<Service>>() {
             @Override
-            public void onChanged(List<Service> services) {
-                if(services!=null) {
+            public void onChanged(List<Service> serv) {
+                if(serv!=null) {
                     Loader.hide();
+                    services = serv;
                     setView();
                 }
             }
@@ -130,27 +125,13 @@ public class ServicesFragment extends Fragment implements ServicesAdapter.OnItem
 
         servicesTextViewLocation.setText(getString(R.string.services_text_search_in)+ " " + servicesViewModel.getSelectedState());
 
-        services = servicesViewModel.getServices().getValue();
-
 
         if(services.size()==0){
             servicesErrorText.setVisibility(View.VISIBLE);
-/*
-            servicesErrorText.setText(Html.fromHtml(
-                    "<b>...Oops!</b><br><br>"+
-                            "No disponemos de "+servicesViewModel.getSelectedCategoryName()+" en "+servicesViewModel.getSelectedState()+".  "+
-                            "Intenta otra combinación.<br><br>"+
-                            "<b>Si ofreces este servicio es tu oportunidad para ser el único en la zona!</b><br>"+
-                            "<i>Contáctanos a servicios@petportal.com</i>"
-            ));
-*/
+
             servicesErrorText.setText(Html.fromHtml(
                     getString(R.string.services_no_items_to_display, servicesViewModel.getSelectedCategoryName(), servicesViewModel.getSelectedState())
             ));
-
-
-
-
 
         }else{
             servicesErrorText.setVisibility(View.GONE);

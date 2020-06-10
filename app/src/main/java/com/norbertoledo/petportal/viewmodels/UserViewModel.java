@@ -1,6 +1,5 @@
 package com.norbertoledo.petportal.viewmodels;
 
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;

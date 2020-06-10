@@ -3,25 +3,17 @@ package com.norbertoledo.petportal.utils;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.Place;
 
-import java.io.Serializable;
 
 public class PlacesInfoWindowDetail extends DialogFragment {
 
@@ -34,8 +26,6 @@ public class PlacesInfoWindowDetail extends DialogFragment {
     int displayHeight;
     int finalWidth;
     int finalHeight;
-
-    private static final String PLACE_KEY = "place_key";
 
 
     public PlacesInfoWindowDetail newInstance(Place place) {

@@ -1,12 +1,11 @@
 package com.norbertoledo.petportal.repositories;
 
-import androidx.lifecycle.LiveData;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.norbertoledo.petportal.models.Tip;
 import com.norbertoledo.petportal.repositories.webservice.Webservice;
 
-import java.util.List;
 
 public class TipRepo {
 

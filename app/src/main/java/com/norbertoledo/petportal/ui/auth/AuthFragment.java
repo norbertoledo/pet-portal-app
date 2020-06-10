@@ -1,7 +1,6 @@
 package com.norbertoledo.petportal.ui.auth;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +60,6 @@ public class AuthFragment extends Fragment {
 
         authText = view.findViewById(R.id.authText);
         authGif = view.findViewById(R.id.authGif);
-        Log.d(TAG, "****************** CARGO AUTH FRAGMENT ************** ");
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();

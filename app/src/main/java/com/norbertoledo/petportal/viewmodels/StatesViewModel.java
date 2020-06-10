@@ -1,6 +1,5 @@
 package com.norbertoledo.petportal.viewmodels;
 
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -25,13 +24,11 @@ public class StatesViewModel extends ViewModel {
         if(states != null){
             return;
         }
-        Log.d(TAG,"INIT STATES: ");
         statesRepo = StatesRepo.getInstance();
         states = statesRepo.getStatesRepo(GlobalVars.STATES_TOKEN);
     }
 
     public LiveData<List<State>> getStates(){
-        Log.d(TAG,"GET STATES: ");
         if(states == null){
             states = new MutableLiveData<>();
         }

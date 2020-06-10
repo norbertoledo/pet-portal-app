@@ -48,10 +48,12 @@ public class Webservice {
         Iws.getPlacesApi(token).enqueue(new Callback<List<Place>>() {
             @Override
             public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
-                Log.d(TAG, "RESPONSE PLACES CODE OK: "+String.valueOf(response.code()));
+                //Log.d(TAG, "RESPONSE PLACES CODE OK: "+String.valueOf(response.code()));
 
                 if(response.body() != null){
                     listPlaces.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
                 }
             }
 
@@ -70,10 +72,12 @@ public class Webservice {
         Iws.getServicesCategoryApi(token).enqueue(new Callback<List<ServicesCategory>>() {
             @Override
             public void onResponse(Call<List<ServicesCategory>> call, Response<List<ServicesCategory>> response) {
-                Log.d(TAG, "RESPONSE SERVICES CATEGORIES CODE OK: "+String.valueOf(response.code()));
+                //Log.d(TAG, "RESPONSE SERVICES CATEGORIES CODE OK: "+String.valueOf(response.code()));
 
                 if(response.body() != null){
                     categories.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
                 }
             }
 
@@ -94,10 +98,12 @@ public class Webservice {
         Iws.getServicesApi(token, state, category).enqueue(new Callback<List<Service>>() {
             @Override
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
-                Log.d(TAG, "RESPONSE SERVICES CODE OK: "+String.valueOf(response.code()));
+                //Log.d(TAG, "RESPONSE SERVICES CODE OK: "+String.valueOf(response.code()));
 
                 if(response.body() != null){
                     services.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
                 }
             }
 
@@ -117,10 +123,12 @@ public class Webservice {
         Iws.getTipsApi(token).enqueue(new Callback<List<Tip>>() {
             @Override
             public void onResponse(Call<List<Tip>> call, Response<List<Tip>> response) {
-                Log.d(TAG, "RESPONSE TIPS CODE OK: "+String.valueOf(response.code()));
+                //Log.d(TAG, "RESPONSE TIPS CODE OK: "+String.valueOf(response.code()));
 
                 if(response.body() != null){
                     listTips.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
                 }
             }
 
@@ -141,10 +149,12 @@ public class Webservice {
         Iws.getTipApi(token, id).enqueue(new Callback<Tip>() {
             @Override
             public void onResponse(Call<Tip> call, Response<Tip> response) {
-                Log.d(TAG, "RESPONSE TIP CODE OK: "+String.valueOf(response.code()));
+                //Log.d(TAG, "RESPONSE TIP CODE OK: "+String.valueOf(response.code()));
 
                 if(response.body() != null){
                     tip.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
                 }
             }
 
@@ -164,10 +174,12 @@ public class Webservice {
         Iws.getStatesApi(token).enqueue(new Callback<List<State>>() {
             @Override
             public void onResponse(Call<List<State>> call, Response<List<State>> response) {
-                Log.d(TAG, "RESPONSE STATES CODE OK: "+String.valueOf(response.code()));
+                //Log.d(TAG, "RESPONSE STATES CODE OK: "+String.valueOf(response.code()));
 
                 if(response.body() != null){
                     listStates.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
                 }
             }
 
@@ -189,15 +201,18 @@ public class Webservice {
         Iws.getLinksApi(token).enqueue(new Callback<List<Link>>() {
             @Override
             public void onResponse(Call<List<Link>> call, Response<List<Link>> response) {
-                Log.d(TAG, "RESPONSE LINKS CODE OK: "+String.valueOf(response.code()));
+                //Log.d(TAG, "RESPONSE LINKS CODE OK: "+String.valueOf(response.code()));
 
                 if(response.body() != null){
                     listLink.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<List<Link>> call, Throwable t) {
+                Log.d(TAG, "RESPONSE ERROR: "+t.getMessage());
                 listLink.setValue(null);
             }
         });
@@ -211,15 +226,17 @@ public class Webservice {
         Iws.newUserApi(token, user).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d(TAG, "RESPONSE NEW USER CODE OK: "+String.valueOf(response.code()));
+                //Log.d(TAG, "RESPONSE NEW USER CODE OK: "+String.valueOf(response.code()));
                 if(response.body() != null){
                     newUser.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d(TAG, "RESPONSE BODY ERROR: "+t.getMessage());
+                Log.d(TAG, "RESPONSE ERROR: "+t.getMessage());
                 newUser.setValue(null);
             }
         });
@@ -234,15 +251,17 @@ public class Webservice {
         Iws.getUserApi(token).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d(TAG, "RESPONSE GET USER CODE OK: "+String.valueOf(response.code()));
+                //Log.d(TAG, "RESPONSE GET USER CODE OK: "+String.valueOf(response.code()));
                 if(response.body() != null){
                     user.setValue( response.body() );
+                }else{
+                    Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
                 }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d(TAG, "RESPONSE BODY ERROR: "+t.getMessage());
+                Log.d(TAG, "RESPONSE ERROR: "+t.getMessage());
                 user.setValue(null);
             }
         });
@@ -258,7 +277,7 @@ public class Webservice {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if(String.valueOf(response.code()).equals("200")){
-                    Log.d(TAG, "RESPONSE UPDATE USER CODE OK: "+String.valueOf(response.code()));
+                    //Log.d(TAG, "RESPONSE UPDATE USER CODE OK: "+String.valueOf(response.code()));
                     userUpdated.setValue(user);
                 }else{
                     Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
@@ -268,7 +287,7 @@ public class Webservice {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d(TAG, "RESPONSE BODY ERROR: "+t.getMessage());
+                Log.d(TAG, "RESPONSE ERROR: "+t.getMessage());
             }
         });
     return userUpdated;
@@ -284,7 +303,7 @@ public class Webservice {
             public void onResponse(Call<User> call, Response<User> response) {
 
                 if(String.valueOf(response.code()).equals("200")){
-                    Log.d(TAG, "RESPONSE UPDATE USER CODE OK: "+String.valueOf(response.code()));
+                    //Log.d(TAG, "RESPONSE UPDATE USER CODE OK: "+String.valueOf(response.code()));
                     userImageUpdated.setValue( response.body() );
                 }else{
                     Log.d(TAG, "RESPONSE CODE ERROR: "+String.valueOf(response.code()));
@@ -294,7 +313,7 @@ public class Webservice {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d(TAG, "RESPONSE BODY ERROR: "+t.getMessage());
+                Log.d(TAG, "RESPONSE ERROR: "+t.getMessage());
             }
         });
         return userImageUpdated;

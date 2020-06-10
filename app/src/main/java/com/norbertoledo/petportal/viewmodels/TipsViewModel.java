@@ -1,6 +1,5 @@
 package com.norbertoledo.petportal.viewmodels;
 
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -30,13 +29,11 @@ public class TipsViewModel extends ViewModel {
         if(tips != null){
             return;
         }
-        Log.d(TAG,"INIT TIPS: ");
         tipsRepo = TipsRepo.getInstance();
         tips = tipsRepo.getTipsRepo( token );
     }
 
     public LiveData<List<Tip>> getTips(){
-        Log.d(TAG,"GET TIPS: ");
         if(tips == null){
             tips = new MutableLiveData<>();
         }
@@ -49,13 +46,11 @@ public class TipsViewModel extends ViewModel {
         for (int i = 0; i < historyTips.size(); i++) {
             if(historyTips.get(i).getId().equals( selectedTipId ) ){
                 tip.setValue( historyTips.get(i) );
-                Log.d(TAG, "GET EXIST TIP: ");
                 isExist=true;
             }
         }
 
         if(!isExist) {
-            Log.d(TAG, "GET NEW TIP: ");
             tipRepo = TipRepo.getInstance();
             tip = tipRepo.getTipRepo(token, selectedTipId);
         }

@@ -1,6 +1,5 @@
 package com.norbertoledo.petportal.repositories;
 
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
