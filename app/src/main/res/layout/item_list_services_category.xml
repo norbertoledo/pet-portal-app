@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="200dp">
-        <!--app:cardCornerRadius="5dp"-->
 
 
         <ImageView
             android:id="@+id/item_services_category_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:contentDescription="@string/services_category_image_description"
+            />
 
         <View
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             android:textSize="20sp"
             android:gravity="bottom"
             android:padding="10dp"
-            android:text="Categoria"/>
+            android:text="@string/services_category_text_title"/>
 
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

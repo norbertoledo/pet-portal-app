@@ -42,16 +42,17 @@ public class UserRepo {
         return user;
     }
 
-    public MutableLiveData<User> newUserRepo() {
+    public MutableLiveData<User> newUserRepo(String token, User user) {
 
         if (conn) {
             // Load data from webservice
-            user = new MutableLiveData<User>();
+            ws = Webservice.getInstance();
+            return ws.newUserWs(token, user);
         } else {
             // Load data from cache / Local DB
-            user = null;
+            return null;
         }
-        return user;
+
     }
 
     public MutableLiveData<User> updateUserRepo(final String token, final User user) {

@@ -1,5 +1,7 @@
 package com.norbertoledo.petportal.repositories.webservice;
 
+import com.norbertoledo.petportal.utils.GlobalVars;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -7,9 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class WebserviceBuilder {
 
     private static Retrofit instance;
-    //private static String url = "http://10.0.2.2:5001/pet-portal/us-central1/api/";
-    private static String url = "https://us-central1-pet-portal.cloudfunctions.net/api/";
-
+    private static String url = GlobalVars.API_URL;
 
     // Singleton pattern
     public static Retrofit getInstance(){

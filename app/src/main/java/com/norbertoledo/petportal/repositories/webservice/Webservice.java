@@ -12,7 +12,6 @@ import com.norbertoledo.petportal.models.ServicesCategory;
 import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.models.Tip;
 import com.norbertoledo.petportal.models.User;
-import com.norbertoledo.petportal.viewmodels.UserViewModel;
 
 import java.util.List;
 
@@ -38,16 +37,13 @@ public class Webservice {
         return instance;
     }
 
-
     private Webservice(){
         Iws = WebserviceBuilder.getInstance().create(IWebservice.class);
-
     }
 
     // GET PLACES
     final MutableLiveData<List<Place>> listPlaces = new MutableLiveData<>();
     public LiveData<List<Place>> getPlacesWs(String token){
-
 
         Iws.getPlacesApi(token).enqueue(new Callback<List<Place>>() {
             @Override
@@ -67,12 +63,9 @@ public class Webservice {
         return listPlaces;
     }
 
-
-
     // GET SERVICES CATEGORIES
     final MutableLiveData<List<ServicesCategory>> categories = new MutableLiveData<>();
     public LiveData<List<ServicesCategory>> getServicesCategoryWs(String token){
-
 
         Iws.getServicesCategoryApi(token).enqueue(new Callback<List<ServicesCategory>>() {
             @Override
@@ -121,7 +114,6 @@ public class Webservice {
     final MutableLiveData<List<Tip>> listTips = new MutableLiveData<>();
     public LiveData<List<Tip>> getTipsWs(String token){
 
-
         Iws.getTipsApi(token).enqueue(new Callback<List<Tip>>() {
             @Override
             public void onResponse(Call<List<Tip>> call, Response<List<Tip>> response) {
@@ -139,6 +131,7 @@ public class Webservice {
         });
         return listTips;
     }
+
 
     // GET TIP
     final MutableLiveData<Tip> tip = new MutableLiveData<>();
@@ -211,6 +204,27 @@ public class Webservice {
         return listLink;
     }
 
+    // NEW USER
+    public MutableLiveData<User> newUserWs(String token, User user){
+        final MutableLiveData<User> newUser = new MutableLiveData<>();
+
+        Iws.newUserApi(token, user).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d(TAG, "RESPONSE NEW USER CODE OK: "+String.valueOf(response.code()));
+                if(response.body() != null){
+                    newUser.setValue( response.body() );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d(TAG, "RESPONSE BODY ERROR: "+t.getMessage());
+                newUser.setValue(null);
+            }
+        });
+        return newUser;
+    }
 
     // GET USER
     public MutableLiveData<User> getUserWs(String token){

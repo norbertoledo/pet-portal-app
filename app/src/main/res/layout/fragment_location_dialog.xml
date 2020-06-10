@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/location_dialog"
     android:layout_gravity="center"
-    android:layout_marginVertical="50dp"
-    android:layout_marginHorizontal="30dp"
+    android:layout_marginVertical="40dp"
+    android:layout_marginHorizontal="20dp"
     android:padding="16dp"
-    android:background="@android:color/white"
+    android:background="@drawable/bg_round"
     android:orientation="vertical"
     android:clickable="true"
+    android:focusable="true"
     >
 
     <TextView
         android:id="@+id/locationTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Selecciona donde deseas buscar información"
+        android:text="@string/location_text_title"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="16sp"
-        android:textStyle="normal"
+        android:textStyle="bold"
         />
 
     <ListView
@@ -39,8 +38,12 @@
     <Button
         android:id="@+id/locationDismiss"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancelar"
+        android:layout_height="30dp"
+        android:paddingHorizontal="20dp"
+        android:background="@drawable/button_location_cancel"
+        android:text="@string/location_button_cancel"
+        android:textSize="14sp"
+        android:textColor="@color/white"
         android:layout_gravity="center"/>
 
 

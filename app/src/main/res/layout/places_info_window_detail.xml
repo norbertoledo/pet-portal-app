@@ -18,7 +18,9 @@
         <ImageView
             android:id="@+id/placeImage"
             android:layout_width="match_parent"
-            android:layout_height="150dp"/>
+            android:layout_height="150dp"
+            android:contentDescription="@string/places_infowindow_image_description"
+            />
 
         <TextView
             android:id="@+id/placeTitle"
@@ -26,8 +28,11 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="15dp"
             android:paddingTop="5dp"
-            android:textColor="#ff000000"
-            android:textStyle="bold" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:text="@string/places_infowindow_text_title"
+            />
 
         <TextView
             android:id="@+id/placeDescription"
@@ -35,7 +40,10 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="15dp"
             android:paddingBottom="10dp"
-            android:textColor="#ff7f7f7f" />
+            android:textColor="@color/gray"
+            android:textSize="14sp"
+            android:text="@string/places_infowindow_text_description"
+            />
     </LinearLayout>
 
 

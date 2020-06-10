@@ -258,8 +258,7 @@ public class ProfileFragment extends Fragment {
 
                     ObjectKey signature = new ObjectKey(String.valueOf(System.currentTimeMillis()));
 
-                    DrawableCrossFadeFactory factory =
-                            new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
+                    DrawableCrossFadeFactory factory = new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
 
                     Glide.with(getContext())
                             .load(photo)

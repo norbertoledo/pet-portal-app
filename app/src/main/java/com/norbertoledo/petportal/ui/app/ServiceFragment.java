@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -32,6 +33,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.Service;
 import com.norbertoledo.petportal.viewmodels.ServicesViewModel;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class ServiceFragment extends Fragment  implements OnMapReadyCallback {
     private static final int PERMISSIONS_REQUEST_CALL_PHONE = 1;
@@ -80,13 +83,14 @@ public class ServiceFragment extends Fragment  implements OnMapReadyCallback {
     }
 
     public void setView(){
-        Glide.with(getActivity()).load(service.getImage()).centerCrop().into(serviceImage);
+        DrawableCrossFadeFactory factory = new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
+        Glide.with(getActivity()).load(service.getImage()).transition(withCrossFade(factory)).centerCrop().into(serviceImage);
         serviceName.setText( Html.fromHtml(service.getName()) );
         serviceDescription.setText( Html.fromHtml(service.getDescription()) );
-        serviceAddress.setText( Html.fromHtml("<b>Dirección: </b>" + service.getAddress()) );
-        servicePhone.setText( Html.fromHtml("<b>Teléfono: </b>" + service.getPhone()) );
-        serviceWebsite.setText( Html.fromHtml("<b>Website: </b>" + service.getWebsite()) );
-        serviceUbicacion.setText( Html.fromHtml("<b>Ubicación</b>"));
+        serviceAddress.setText( Html.fromHtml("<b>" + getString(R.string.service_text_address) + "</b> " + service.getAddress()) );
+        servicePhone.setText( Html.fromHtml("<b>" + getString(R.string.service_text_phone) + "</b> " + service.getPhone()) );
+        serviceWebsite.setText( Html.fromHtml("<b>" + getString(R.string.service_text_website) + "</b> " + service.getWebsite()) );
+        serviceUbicacion.setText( Html.fromHtml("<b>" + getString(R.string.service_text_location) + "</b> "));
 
 
         servicePhone.setOnClickListener(new View.OnClickListener() {
@@ -116,11 +120,8 @@ public class ServiceFragment extends Fragment  implements OnMapReadyCallback {
                     new String[]{Manifest.permission.CALL_PHONE},
                     PERMISSIONS_REQUEST_CALL_PHONE);
 
-            // MY_PERMISSIONS_REQUEST_CALL_PHONE is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
         } else {
-            //You already have permission
+
             try {
                 startActivity(phoneIntent);
             } catch(SecurityException e) {
@@ -139,20 +140,15 @@ public class ServiceFragment extends Fragment  implements OnMapReadyCallback {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the phone call
                     openPhone(String.valueOf( service.getPhone() ));
-                    //Snackbar.make(view, "Ya puedes realizar la llamada", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, R.string.permission_success_call, Snackbar.LENGTH_LONG).show();
                 } else {
+                    Snackbar.make(view, R.string.permission_error_call, Snackbar.LENGTH_LONG).show();
 
-                    Snackbar.make(view, "No se han aceptado los permisos", Snackbar.LENGTH_LONG).show();
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
                 }
                 return;
             }
 
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
     }
 

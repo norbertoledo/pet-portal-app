@@ -5,44 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f0f0"
+    android:background="@color/lightGray"
     tools:context=".ui.app.LinksFragment"
     android:id="@+id/linksFragment"
     >
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/linksListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="24dp"
-
+        android:layout_marginBottom="24dp"
+        android:paddingHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/linksTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="LINKS DE INTERES"
-            android:textAlignment="center"
-            android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ListView
-            android:id="@+id/linksListView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="32dp"
-            android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linksTitle"
-            app:layout_constraintVertical_weight="1" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

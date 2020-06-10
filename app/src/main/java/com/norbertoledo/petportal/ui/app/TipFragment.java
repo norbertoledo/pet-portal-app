@@ -23,11 +23,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.Tip;
 import com.norbertoledo.petportal.utils.Loader;
 import com.norbertoledo.petportal.viewmodels.TipsViewModel;
 import com.norbertoledo.petportal.viewmodels.UserViewModel;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class TipFragment extends Fragment {
 
@@ -77,7 +80,12 @@ public class TipFragment extends Fragment {
 
         tip = tipsViewModel.getResponseTip().getValue();
 
-        Glide.with(getContext()).load(tip.getImage()).centerCrop().into(tipImage);
+        DrawableCrossFadeFactory factory = new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
+        Glide.with(getContext())
+                .load(tip.getImage())
+                .transition(withCrossFade(factory))
+                .centerCrop()
+                .into(tipImage);
         tipTitle.setText( tip.getTitle() );
 
         // HTML TEXT

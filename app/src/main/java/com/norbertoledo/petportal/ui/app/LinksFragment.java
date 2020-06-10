@@ -32,8 +32,6 @@ public class LinksFragment extends Fragment {
 
     private static final String TAG = "LINKS";
 
-    private TextView linksTitle;
-
     private LinksViewModel linksViewModel;
     private UserViewModel userViewModel;
     private ArrayAdapter<Link> adapter;
@@ -54,7 +52,6 @@ public class LinksFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        linksTitle = view.findViewById(R.id.linksTitle);
         linksListView = view.findViewById(R.id.linksListView);
 
         linksViewModel = new ViewModelProvider(getActivity()).get(LinksViewModel.class);

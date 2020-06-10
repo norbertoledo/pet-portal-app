@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="10dp"
-    android:paddingVertical="20dp">
+    android:paddingVertical="20dp"
+
+    >
 
     <TextView
         android:id="@+id/item_links_title"
@@ -14,17 +16,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textColor="@color/colorPrimaryDark"
         android:textStyle="bold"
-        android:text="Title"/>
+        android:text="@string/links_item_text_title"/>
 
     <TextView
         android:id="@+id/item_links_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Description"
+        android:text="@string/links_item_text_description"
+        android:textSize="14sp"
+        android:textColor="@color/darkGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_links_title" />
@@ -34,9 +38,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Link"
+        android:text="@string/links_item_text_link"
         android:textColor="@color/colorPrimary"
-        android:textSize="12dp"
+        android:textSize="13sp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/item_links_description" />

@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN ACTIVITY";
 
     private FirebaseAuth mAuth;
+    private View drawerHeader;
     private TextView headerName;
     private TextView headerEmail;
     private ImageView headerPhoto;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     private LocationViewModel locationViewModel;
     private StatesViewModel statesViewModel;
     private List<State> listStates;
+    private String userName;
+    private String userEmail;
+    private String userPhotoUrl;
 
 
 
@@ -68,33 +72,21 @@ public class MainActivity extends AppCompatActivity {
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
+        drawerHeader = navigationView.getHeaderView(0);
+        headerName = drawerHeader.findViewById(R.id.headerName);
+        headerEmail = drawerHeader.findViewById(R.id.headerEmail);
+        headerPhoto = drawerHeader.findViewById(R.id.headerPhoto);
+
         // Navigation
         setActionBar();
         destinationHandler();
         setDrawerAction();
 
-        Log.d(TAG, "****************** CARGO MAIN ACTIVITY ************** ");
-        // User ViewModel
+        // ViewModels
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         locationViewModel = new ViewModelProvider(this).get(LocationViewModel.class);
-
         statesViewModel = new ViewModelProvider(this).get(StatesViewModel.class);
 
-        userViewModel.getUserToken().observe(this, new Observer<String>(){
-
-            @Override
-            public void onChanged(String token) {
-                if(token!=null){
-
-                    //loadUserInfo();
-                    loadStates();
-                }
-            }
-
-        });
-
-    }
-    private void loadStates(){
         statesViewModel.init();
         statesViewModel.getStates().observe(this, new Observer<List<State>>(){
 
@@ -102,38 +94,40 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(List<State> states) {
                 if(states!=null){
                     listStates = states;
-                    Log.d("STATEEEEEEEEEES -> ", String.valueOf(listStates.size()));
+                    waitUserToken();
+                }
+            }
 
-                        loadUserInfo();
+        });
 
+        drawerHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.action_global_profileFragment);
+            }
+        });
+
+    }
+
+    private void waitUserToken(){
+        userViewModel.getUserToken().observe(this, new Observer<String>(){
+
+            @Override
+            public void onChanged(String token) {
+                if(token!=null){
+                    loadUserInfo();
                 }
             }
 
         });
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.toolbar_nav_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.locationItem){
 
-            LocationDialog.show(MainActivity.this, MainActivity.this);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-*/
     private void loadUserInfo(){
 
         userViewModel.getUserData().observe(this, new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                Log.d(TAG, "****************** GET USER CHANGED ************** ");
-
 
                 if(user!=null){
 
@@ -149,24 +143,17 @@ public class MainActivity extends AppCompatActivity {
                     // Seteo la ciudad
                     locationViewModel.setLocation( state );
 
-                    Log.d(TAG, "USER-> "+user.toString());
-                    Log.d(TAG, "USER TOKEN -> "+userViewModel.getUserToken().getValue());
-                    String name = user.getName();
-                    String email = user.getEmail();
-                    String photoUrl = user.getPhotoUrl();
+                    userName = user.getName();
+                    userEmail = user.getEmail();
+                    userPhotoUrl = user.getPhotoUrl();
 
-                    View header = navigationView.getHeaderView(0);
-
-                    headerName = header.findViewById(R.id.headerName);
-                    headerEmail = header.findViewById(R.id.headerEmail);
-                    headerPhoto = header.findViewById(R.id.headerPhoto);
 
                     if(user.getName() == null){
-                        name = "Usuario sin nombre";
+                        userName = "Usuario sin nombre";
                     }
 
-                    headerName.setText(name);
-                    headerEmail.setText(email);
+                    headerName.setText(userName);
+                    headerEmail.setText(userEmail);
 
 
                     ObjectKey signature = null;
@@ -180,9 +167,8 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     Glide.with(MainActivity.this)
-                            .load(photoUrl)
+                            .load(userPhotoUrl)
                             .signature(signature)
-                            //.circleCrop()
                             .centerCrop()
                             .error(R.mipmap.ic_launcher_round)
                             .into(headerPhoto);
@@ -298,8 +284,6 @@ public class MainActivity extends AppCompatActivity {
         mAuth.signOut();
         navController.navigate(R.id.action_global_signInFragment);
     }
-
-
 
 
 }

@@ -13,10 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.norbertoledo.petportal.R;
 import com.norbertoledo.petportal.models.Service;
 
 import java.util.List;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Holder> {
 
@@ -50,7 +53,8 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Holder
 
         holder.title.setText( item.getName() );
         holder.caption.setText( item.getDescription() );
-        Glide.with(context).load(item.getThumb()).centerCrop().into(holder.image);
+        DrawableCrossFadeFactory factory = new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
+        Glide.with(context).load(item.getThumb()).transition(withCrossFade(factory)).centerCrop().into(holder.image);
         //Log.d("IMAGEN THUMB ->",item.getThumb());
     }
 

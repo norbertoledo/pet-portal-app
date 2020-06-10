@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.norbertoledo.petportal.models.State;
 import com.norbertoledo.petportal.repositories.StatesRepo;
+import com.norbertoledo.petportal.utils.GlobalVars;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class StatesViewModel extends ViewModel {
         }
         Log.d(TAG,"INIT STATES: ");
         statesRepo = StatesRepo.getInstance();
-        states = statesRepo.getStatesRepo( "onlygetstateswithoutauth" );
+        states = statesRepo.getStatesRepo(GlobalVars.STATES_TOKEN);
     }
 
     public LiveData<List<State>> getStates(){

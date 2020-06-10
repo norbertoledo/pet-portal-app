@@ -7,15 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -38,13 +35,13 @@ public class AuthFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
-    private User user;
     private AuthViewModel authViewModel;
     private UserViewModel userViewModel;
     private NavController navController;
     private TextView authText;
     private ImageView authGif;
     private View view;
+    private String userToken;
 
 
     public AuthFragment(){}
@@ -54,6 +51,13 @@ public class AuthFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_auth, container, false);
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         authText = view.findViewById(R.id.authText);
         authGif = view.findViewById(R.id.authGif);
@@ -66,24 +70,16 @@ public class AuthFragment extends Fragment {
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         authViewModel = new ViewModelProvider(getActivity()).get(AuthViewModel.class);
+        userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
+
         authViewModel.getAuthMessage().observe(getActivity(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer message) {
                 authText.setText(message);
             }
-
         });
 
-        userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
-
         Glide.with(this).load(R.drawable.loading_dog).into(authGif);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
 
         updateUI();
     }
@@ -92,11 +88,11 @@ public class AuthFragment extends Fragment {
     private void updateUI() {
 
         authViewModel.setAuthMessage( R.string.auth_text_validate );
-        Log.d(TAG, "currentUser-> "+currentUser);
+
         if(currentUser != null) {
             getIdToken();
         }else{
-            loadSignIn();
+            gotoSignIn();
         }
 
     }
@@ -107,15 +103,12 @@ public class AuthFragment extends Fragment {
             public void onComplete(@NonNull Task<GetTokenResult> task) {
                 if (task.isSuccessful()) {
                     authViewModel.setAuthMessage( R.string.auth_text_load );
-                    String userToken = task.getResult().getToken();
-                    Log.d(TAG, "****************** TOKEN "+userToken);
+                    userToken = task.getResult().getToken();
                     userViewModel.setUserToken(userToken);
                     loadUser();
                 } else {
-                    // Handle error -> task.getException();
                     authViewModel.setAuthMessage( R.string.auth_text_error );
-                    Log.d(TAG, "Error verificar usuario-> "+task.getException());
-                    loadSignIn();
+                    gotoSignIn();
                 }
             }
         });
@@ -123,15 +116,12 @@ public class AuthFragment extends Fragment {
 
     private void loadUser(){
 
-        userViewModel.getUserData().observe(this, new Observer<User>() {
-
+        userViewModel.getUserData().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
-                Log.d(TAG, "****************** GET USER CHANGED ************** ");
-                Log.d(TAG, "****************** USER "+user);
                 if(user!=null){
                     Snackbar.make(view, "Hola "+ user.getName()+"!", Snackbar.LENGTH_LONG).show();
-                    loadApp();
+                    gotoApp();
                 }
             }
         });
@@ -139,11 +129,11 @@ public class AuthFragment extends Fragment {
     }
 
 
-    private void loadApp(){
+    private void gotoApp(){
         navController.navigate(R.id.action_authFragment_to_homeFragment);
     }
 
-    private void loadSignIn(){
+    private void gotoSignIn(){
         navController.navigate(R.id.action_authFragment_to_signInFragment);
     }
 

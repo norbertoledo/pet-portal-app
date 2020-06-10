@@ -15,8 +15,8 @@
         android:id="@+id/item_places_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:text="category"
+        android:layout_marginStart="5dp"
+        android:text="@string/places_text_category"
         android:textColor="#BCBCBC"
         android:textSize="12sp" />
 

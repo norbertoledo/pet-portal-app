@@ -128,13 +128,14 @@ public class ServicesFragment extends Fragment implements ServicesAdapter.OnItem
         int bgColor = Color.parseColor(servicesViewModel.getSelectedCategoryColor());
         servicesView.setBackgroundColor(bgColor);
 
-        servicesTextViewLocation.setText("Buscando en "+servicesViewModel.getSelectedState());
+        servicesTextViewLocation.setText(getString(R.string.services_text_search_in)+ " " + servicesViewModel.getSelectedState());
 
         services = servicesViewModel.getServices().getValue();
 
 
         if(services.size()==0){
             servicesErrorText.setVisibility(View.VISIBLE);
+/*
             servicesErrorText.setText(Html.fromHtml(
                     "<b>...Oops!</b><br><br>"+
                             "No disponemos de "+servicesViewModel.getSelectedCategoryName()+" en "+servicesViewModel.getSelectedState()+".  "+
@@ -142,6 +143,14 @@ public class ServicesFragment extends Fragment implements ServicesAdapter.OnItem
                             "<b>Si ofreces este servicio es tu oportunidad para ser el único en la zona!</b><br>"+
                             "<i>Contáctanos a servicios@petportal.com</i>"
             ));
+*/
+            servicesErrorText.setText(Html.fromHtml(
+                    getString(R.string.services_no_items_to_display, servicesViewModel.getSelectedCategoryName(), servicesViewModel.getSelectedState())
+            ));
+
+
+
+
 
         }else{
             servicesErrorText.setVisibility(View.GONE);

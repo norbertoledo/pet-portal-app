@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.SignUpFragment"
+    android:theme="@style/AppTheme.NoActionBar"
+    android:background="@drawable/bg_sign"
+    android:id="@+id/signupFragment">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_round"
+            android:orientation="horizontal"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:baselineAligned="false"
+            >
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="60"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp">
+
+
+
+
+                <EditText
+                    android:id="@+id/signupEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:textSize="14sp"
+                    android:ems="10"
+                    android:hint="@string/signup_input_email"
+                    android:inputType="textEmailAddress"
+                    />
+
+                <EditText
+                    android:id="@+id/signupPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:autofillHints=""
+                    android:textSize="14sp"
+                    android:ems="10"
+                    android:hint="@string/signup_input_password"
+                    android:inputType="textPassword" />
+
+                <EditText
+                    android:id="@+id/signupConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:autofillHints=""
+                    android:textSize="14sp"
+                    android:ems="10"
+                    android:hint="@string/signup_input_confirm_password"
+                    android:inputType="textPassword" />
+                <EditText
+                    android:id="@+id/signupName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:autofillHints=""
+                    android:textSize="14sp"
+                    android:ems="10"
+                    android:hint="@string/signup_input_name"
+                    android:inputType="text" />
+
+                <Spinner
+                    android:id="@+id/signupSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="8dp"
+                    android:spinnerMode="dialog"
+                    android:textSize="12sp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp">
+
+
+                <TextView
+                    android:id="@+id/signupTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:text="@string/signup_text_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/signupBtnRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/button_sign_up"
+                    android:text="@string/signup_btn_register"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    android:layout_marginTop="25dp"/>
+
+
+
+                <TextView
+                    android:id="@+id/signinRegister"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:text="@string/signup_text_register" />
+
+                <Button
+                    android:id="@+id/signupBtnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/button_sign_in"
+                    android:text="@string/signup_btn_login"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

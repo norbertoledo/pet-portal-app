@@ -20,7 +20,7 @@ public class UserViewModel extends ViewModel {
 
     private MutableLiveData<String> userToken;
     private MutableLiveData<User> userData;
-    private MutableLiveData<String> message;
+    private MutableLiveData<User> newUserResponse;
     private MutableLiveData<User> updateResponse;
     private MutableLiveData<User> updateImageResponse;
     private MutableLiveData<ObjectKey> imageProfileSignature;
@@ -44,30 +44,32 @@ public class UserViewModel extends ViewModel {
 
     public void resetUserData(){
         userData = null;
-        message = null;
     }
 
     public void setUserData(@Nullable User user){
-        Log.d(TAG,"SET USER DATA: "+user);
         userData.setValue(user);
+    }
+
+    // New User
+    public void newUser(String token, User user){
+        if(userData==null){
+            userRepo = UserRepo.getInstance();
+            newUserResponse = userRepo.newUserRepo( token, user );
+        }
+    }
+
+    public LiveData<User> newUserResponse(){
+        if(newUserResponse == null){
+            newUserResponse = new MutableLiveData<>();
+        }
+        return newUserResponse;
     }
 
     // Get User
     public LiveData<User> getUserData(){
         if(userData==null){
-            Log.d(TAG,"GET USER DATA (SOY NULL Y BUSCO NUEVA INSTANCIA: "+userData);
             userRepo = UserRepo.getInstance();
             userData = userRepo.getUserRepo(getUserToken().getValue());
-        }
-        Log.d(TAG,"GET USER DATA: "+userData);
-        return userData;
-    }
-
-    // Create User
-    public LiveData<User> newUser(){
-        if(userData==null){
-            userRepo = UserRepo.getInstance();
-            userData = userRepo.newUserRepo();
         }
         return userData;
     }
@@ -75,7 +77,6 @@ public class UserViewModel extends ViewModel {
 
     // Update User Data
     public void updateUserData(final User user){
-
         userRepo = UserRepo.getInstance();
         updateResponse = userRepo.updateUserRepo( getUserToken().getValue(), user );
     }
@@ -84,7 +85,6 @@ public class UserViewModel extends ViewModel {
         if(updateResponse==null){
             updateResponse = new MutableLiveData<User>();
         }
-        Log.d(TAG,"LLAMO A USER DATA RESPONSE: "+updateResponse.getValue());
         return updateResponse;
     }
 
@@ -98,14 +98,12 @@ public class UserViewModel extends ViewModel {
     public void updateUserImage(MultipartBody.Part requestImage, RequestBody imageData){
         userRepo = UserRepo.getInstance();
         updateImageResponse = userRepo.updateUserImageRepo( getUserToken().getValue(), requestImage, imageData );
-
     }
 
     public LiveData<User> updateUserImageResponse(){
         if(updateImageResponse==null){
             updateImageResponse = new MutableLiveData<User>();
         }
-        Log.d(TAG,"LLAMO A USER IMAGE RESPONSE: "+updateImageResponse.getValue());
         return updateImageResponse;
     }
 
@@ -128,21 +126,6 @@ public class UserViewModel extends ViewModel {
     }
 
 
-    // Messages
-    public MutableLiveData<String> getMessages(){
-        if(message==null){
-            message = new MutableLiveData<String>();
-        }
-        Log.d(TAG,"LLAMO A GET MESSAGE: "+message.getValue());
-        return message;
-    }
-    public void setMessage(String msg){
-        message.setValue(msg);
-    }
-
-    public void clearMessage() {
-        message.setValue(null);
-    }
 
 }
 

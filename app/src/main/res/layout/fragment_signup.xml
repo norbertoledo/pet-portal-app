@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.auth.SignUpFragment"
     android:theme="@style/AppTheme.NoActionBar"
-    android:background="@color/colorPrimaryDark"
+    android:background="@drawable/bg_sign"
     android:id="@+id/signupFragment">
 
     <LinearLayout
@@ -15,9 +15,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:background="@android:color/white"
+        android:background="@drawable/bg_round"
         android:orientation="vertical"
-        android:padding="30dp"
+        android:padding="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,17 +30,21 @@
             android:layout_height="wrap_content"
             android:text="@string/signup_text_title"
             android:textAlignment="center"
-            android:textSize="32sp" />
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"/>
 
         <EditText
             android:id="@+id/signupEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:autofillHints=""
+            android:textSize="14sp"
             android:ems="10"
             android:hint="@string/signup_input_email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            />
 
         <EditText
             android:id="@+id/signupPassword"
@@ -48,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autofillHints=""
+            android:textSize="14sp"
             android:ems="10"
             android:hint="@string/signup_input_password"
             android:inputType="textPassword" />
@@ -58,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autofillHints=""
+            android:textSize="14sp"
             android:ems="10"
             android:hint="@string/signup_input_confirm_password"
             android:inputType="textPassword" />
@@ -68,6 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:autofillHints=""
+            android:textSize="14sp"
             android:ems="10"
             android:hint="@string/signup_input_name"
             android:inputType="text" />
@@ -78,16 +85,18 @@
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             android:spinnerMode="dialog"
+            android:textSize="12sp"
             />
 
         <Button
             android:id="@+id/signupBtnRegister"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_red_light"
+            android:layout_height="30dp"
+            android:background="@drawable/button_sign_up"
             android:text="@string/signup_btn_register"
             android:textColor="@android:color/white"
-            android:layout_marginTop="10dp"/>
+            android:textSize="14sp"
+            android:layout_marginTop="15dp"/>
 
 
 
@@ -95,17 +104,19 @@
             android:id="@+id/signinRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="20dp"
+            android:textSize="12sp"
+            android:gravity="center"
             android:text="@string/signup_text_register" />
 
         <Button
             android:id="@+id/signupBtnLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@color/colorPrimary"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_sign_in"
             android:text="@string/signup_btn_login"
+            android:textSize="14sp"
             android:textColor="@android:color/white" />
 
 

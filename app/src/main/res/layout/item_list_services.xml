@@ -2,7 +2,6 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -24,7 +23,9 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/services_item_image_description"
+                />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -43,7 +44,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:paddingHorizontal="20dp"
-                    android:text="Title"
+                    android:text="@string/services_item_text_title"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -62,7 +63,7 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:paddingHorizontal="20dp"
-                    android:text="Caption"
+                    android:text="@string/services_item_text_description"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/item_services_image"
@@ -75,10 +76,10 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:paddingHorizontal="10dp"
-                    android:text="[+ info]"
+                    android:text="@string/services_item_text_more"
                     android:textAlignment="textEnd"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="11sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

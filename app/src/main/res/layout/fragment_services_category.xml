@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.app.ServicesCategoryFragment"
     android:id="@+id/servicesCategoryFragment"
-    android:background="@color/blue"
+    android:background="@color/darkGray"
     >
 
     <androidx.recyclerview.widget.RecyclerView

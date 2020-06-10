@@ -16,7 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingBottom="16dp"
             >
 
@@ -26,7 +26,9 @@
                 android:layout_height="300dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/service_image_description"
+                />
 
             <TextView
                 android:id="@+id/serviceName"
@@ -35,7 +37,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Name"
+                android:text="@string/service_text_name"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
@@ -50,7 +52,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Description"
+                android:text="@string/service_text_description"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
@@ -65,7 +67,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Addresss"
+                android:text="@string/service_text_address"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
@@ -80,7 +82,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Phone"
+                android:text="@string/service_text_phone"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
@@ -95,7 +97,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Website"
+                android:text="@string/service_text_website"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"
@@ -110,7 +112,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Website"
+                android:text="@string/service_text_location"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:textColor="@color/white"

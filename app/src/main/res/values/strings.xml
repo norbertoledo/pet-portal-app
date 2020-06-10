@@ -12,29 +12,32 @@
     <string name="auth_text_validate">Validando usuario</string>
     <string name="auth_text_error">Usuario no logueado</string>
     <string name="auth_text_load">Cargando usuario</string>
+    <string name="auth_image_description">Imagen Cargando</string>
 
-    <!-- SIGN IN FORM -->
+    <!-- SIGN IN -->
     <string name="signin_text_title">Ingresar</string>
     <string name="signin_btn_login">Ingresar</string>
-    <string name="signin_text_register">Si aún no tienes cuenta, créala ahora!</string>
+    <string name="signin_text_register">O crea tu cuenta ahora!</string>
     <string name="signin_btn_register">Registrarse</string>
     <string name="signin_input_email">Email</string>
     <string name="signin_input_password">Password</string>
     <string name="signin_message_success">Bienvenido!</string>
     <string name="signin_message_error">Email o Password Incorrectos!</string>
 
-    <!-- SIGN UP FORM -->
+    <!-- SIGN UP -->
     <string name="signup_text_title">Registrarse</string>
     <string name="signup_btn_login">Ingresar</string>
-    <string name="signup_text_register">Si ya tienes cuenta, Ingresa!</string>
+    <string name="signup_text_register">Si tienes cuenta, Ingresa!</string>
     <string name="signup_btn_register">Registrarse</string>
     <string name="signup_input_email">Email</string>
     <string name="signup_input_password">Password</string>
     <string name="signup_input_confirm_password">Confirmar Password</string>
     <string name="signup_input_name">Nombre</string>
     <string name="signup_success">Ha sido registrado con éxito</string>
-    <string name="signup_error">Error en el registro: </string>
     <string name="signup_process">Registrando sus datos</string>
+    <string name="signup_error">Error en el registro: </string>
+    <string name="signup_error_confirm_password">Las passwords no coinciden</string>
+    <string name="signup_error_required_field">Has llenado todos los campos?</string>
 
     <!-- VALIDATE FORM -->
     <string name="form_validate_error">Completa todos los campos con un formato válido</string>
@@ -48,6 +51,64 @@
     <string name="profile_data_update_error">No se ha podido actualizar, reintente...</string>
     <string name="profile_image_update_success">Foto actualizada con éxito!</string>
     <string name="profile_image_update_error">No se ha podido actualizar, reintente...</string>
+    <string name="profile_image_legend">Toque la imagen para cambiarla</string>
+    <string name="profile_button_save">Guardar Datos</string>
+    <string name="profile_image_description">Imagen de Perfil</string>
+    <string name="profile_icon_description">Icono de ubicacion</string>
+    <string name="profile_text_email">Email</string>
+    <string name="profile_text_name">Nombre</string>
+
+    <!-- SERVICES -->
+    <string name="services_text_search_in">Buscando en </string>
+    <string name="services_button_change_location">Cambiar</string>
+    <string name="services_no_items_to_display">
+        &lt;b&gt;...Oops!&lt;/b&gt;
+        &lt;br&gt;&lt;br&gt;
+        No disponemos de %1$s en %2$s.
+        Intenta otra combinación.
+        &lt;br&gt;&lt;br&gt;
+        &lt;b&gt;Si ofreces este servicio es tu oportunidad para ser el único en la zona!&lt;/b&gt;
+        &lt;br&gt;&lt;br&gt;
+        &lt;i&gt;Contáctanos a servicios@petportal.com&lt;/i&gt;
+    </string>
+    <string name="services_category_image_description">Imagen de categoria</string>
+    <string name="services_category_text_title">categoria</string>
+    <string name="services_item_image_description">Thumbnail de Service</string>
+    <string name="services_item_text_title">Titulo</string>
+    <string name="services_item_text_description">Descripcion</string>
+    <string name="services_item_text_more">[+ info]</string>
+
+    <!-- SERVICE -->
+    <string name="service_image_description">Imagen de Profesional</string>
+    <string name="service_text_name">Nombre: </string>
+    <string name="service_text_description">Descripcion: </string>
+    <string name="service_text_address">Dirección: </string>
+    <string name="service_text_phone">Teléfono: </string>
+    <string name="service_text_website">Website: </string>
+    <string name="service_text_location">Ubicación</string>
+
+    <!-- PLACES -->
+    <string name="places_text_category">categoria</string>
+    <string name="places_text_references">Referencias</string>
+    <string name="places_infowindow_image_description">Imagen del lugar</string>
+    <string name="places_infowindow_text_title">Titulo del lugar</string>
+    <string name="places_infowindow_text_description">Descripcion del lugar</string>
+
+    <!-- TIPS -->
+    <string name="tips_item_image_description">Thumbnail de Tip</string>
+    <string name="tips_item_text_title">Titulo</string>
+    <string name="tips_item_text_description">Descripcion</string>
+    <string name="tips_item_text_more">>></string>
+
+    <!-- TIP -->
+    <string name="tip_image_description">Imagen de Tip</string>
+    <string name="tip_text_title">Titulo</string>
+    <string name="tip_text_description">Descripcion</string>
+
+    <!-- LINKS -->
+    <string name="links_item_text_title">Titulo</string>
+    <string name="links_item_text_description">Descripcion</string>
+    <string name="links_item_text_link">link</string>
 
     <!-- LOADER -->
     <string name="loader_message_load">Cargando...</string>
@@ -55,9 +116,17 @@
     <string name="loader_message_update">Actualizando...</string>
     <string name="loader_message_validate">Validando...</string>
 
+    <!-- LOCATION -->
+    <string name="location_text_title">Selecciona donde deseas buscar información</string>
+    <string name="location_button_cancel">Cancelar</string>
+
+
+
     <!-- PERMISSION -->
     <string name="permission_success">Aceptado! Ya puede cargar la imagen!</string>
     <string name="permission_error">Denegado! Debe aceptar los permisos para cargar una imagen</string>
+    <string name="permission_success_call">Aceptado! Ya puede hacer una llamada</string>
+    <string name="permission_error_call">Denegado! Debe aceptar los permisos para hacer una llamada</string>
 
     <!-- FIREBASE -->
     <string name="firebase_error_token">No se logró obtener token de usuario. Reintente</string>

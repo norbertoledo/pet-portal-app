@@ -73,7 +73,7 @@ public interface IWebservice {
 
 
         @POST("users")
-        Call<User> createUserApi(
+        Call<User> newUserApi(
                 @Header("Authorization") String authorization,
                 @Body User userData
         );
