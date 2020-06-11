@@ -59,7 +59,7 @@
     <string name="profile_text_name">Nombre</string>
 
     <!-- HOME -->
-    <string name="home_text_title">Bienvenidos</string>
+    <string name="home_text_title">Hola %1$s!</string>
     <string name="home_text_description">Pet Portal es un servicio para que todos los amantes de las mascotas tengan la información necesaria.</string>
     <string name="home_image_logo_description">Logotipo Pet Portal</string>
     <string name="home_image_icon_services_description">Icono servicios</string>

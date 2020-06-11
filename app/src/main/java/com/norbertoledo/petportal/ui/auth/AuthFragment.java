@@ -118,7 +118,6 @@ public class AuthFragment extends Fragment {
             @Override
             public void onChanged(User user) {
                 if(user!=null){
-                    Snackbar.make(view, "Hola "+ user.getName()+"!", Snackbar.LENGTH_LONG).show();
                     gotoApp();
                 }
             }
