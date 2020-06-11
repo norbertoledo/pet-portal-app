@@ -118,7 +118,7 @@
                 <Button
                     android:id="@+id/signupBtnRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:background="@drawable/button_sign_up"
                     android:text="@string/signup_btn_register"
                     android:textColor="@android:color/white"
@@ -139,7 +139,7 @@
                 <Button
                     android:id="@+id/signupBtnLogin"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/button_sign_in"
                     android:text="@string/signup_btn_login"

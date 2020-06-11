@@ -61,7 +61,7 @@
         <Button
             android:id="@+id/signinBtnLogin"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_sign_in"
             android:text="@string/signin_btn_login"
@@ -81,7 +81,7 @@
         <Button
             android:id="@+id/signinBtnRegister"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="35dp"
             android:background="@drawable/button_sign_up"
             android:text="@string/signin_btn_register"
             android:textSize="14sp"

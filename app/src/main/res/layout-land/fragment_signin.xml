@@ -83,12 +83,12 @@
                 <Button
                     android:id="@+id/signinBtnLogin"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:background="@drawable/button_sign_in"
                     android:text="@string/signin_btn_login"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="17dp"
                     />
 
                 <TextView
@@ -104,7 +104,7 @@
                 <Button
                     android:id="@+id/signinBtnRegister"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:background="@drawable/button_sign_up"
                     android:text="@string/signin_btn_register"
                     android:textColor="@android:color/white"

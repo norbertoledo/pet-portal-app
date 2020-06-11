@@ -102,7 +102,7 @@
         <Button
             android:id="@+id/profileSave"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:background="@drawable/button_profile_save"
             android:text="@string/profile_button_save"
             android:textColor="@color/white"
