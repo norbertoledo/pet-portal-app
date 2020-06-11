@@ -75,7 +75,6 @@
                 android:id="@+id/homeDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="64dp"
                 android:fontFamily="@font/roboto_thin"
                 android:text="@string/home_text_description"
                 android:textAlignment="textStart"
