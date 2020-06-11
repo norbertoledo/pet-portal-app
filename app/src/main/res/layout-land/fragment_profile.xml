@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/profile_image_description"
-            android:src="@drawable/profile_default_image"
+            android:src="@drawable/no_image"
+            android:scaleType="centerCrop"
             />
 
         <TextView

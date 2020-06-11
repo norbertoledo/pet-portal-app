@@ -58,6 +58,19 @@
     <string name="profile_text_email">Email</string>
     <string name="profile_text_name">Nombre</string>
 
+    <!-- HOME -->
+    <string name="home_text_title">Bienvenidos</string>
+    <string name="home_text_description">Pet Portal es un servicio para que todos los amantes de las mascotas tengan la información necesaria.</string>
+    <string name="home_image_logo_description">Logotipo Pet Portal</string>
+    <string name="home_image_icon_services_description">Icono servicios</string>
+    <string name="home_image_icon_places_description">Icono Lugares</string>
+    <string name="home_image_icon_tips_description">Icono Tips</string>
+    <string name="home_image_icon_links_description">Icono Links</string>
+    <string name="home_text_icon_services">Servicios</string>
+    <string name="home_text_icon_places">Lugares</string>
+    <string name="home_text_icon_tips">Tips</string>
+    <string name="home_text_icon_links">Links</string>
+
     <!-- SERVICES -->
     <string name="services_text_search_in">Buscando en </string>
     <string name="services_button_change_location">Cambiar</string>

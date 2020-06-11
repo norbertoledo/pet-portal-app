@@ -195,7 +195,7 @@ public class ProfileFragment extends Fragment {
                 .load(photoUrl)
                 .signature(userViewModel.getImageProfileSignature())
                 .centerCrop()
-                .error(R.drawable.profile_default_image)
+                .error(R.drawable.no_image)
                 .into(profileImageButton);
 
 

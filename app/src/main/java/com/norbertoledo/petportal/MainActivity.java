@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
                             .load(userPhotoUrl)
                             .signature(signature)
                             .centerCrop()
-                            .error(R.mipmap.ic_launcher_round)
+                            .error(R.drawable.no_image)
                             .into(headerPhoto);
                 }
 
