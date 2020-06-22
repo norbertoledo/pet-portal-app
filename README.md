@@ -1,5 +1,5 @@
 # pet-portal-app
 
-## No se icluyen la llave de firebase:
+## No se icluye la llave de firebase:
 
 /app/google-services.json
