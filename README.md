@@ -2,5 +2,4 @@
 
 ## No se icluyen la llave de firebase:
 
-### SERVER
-functions/key.json
+/app/google-services.json
