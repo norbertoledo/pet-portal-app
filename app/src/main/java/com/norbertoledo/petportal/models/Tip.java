@@ -5,12 +5,17 @@ public class Tip {
     private String title;
     private String description;
     private String image;
+    private String thumb;
+    private boolean isActive;
 
-    public Tip(String id, String title, String description, String image) {
+
+    public Tip(String id, String title, String description, String image, String thumb, boolean isActive) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.image = image;
+        this.thumb = thumb;
+        this.isActive = isActive;
     }
 
     public String getId() {
@@ -43,5 +48,21 @@ public class Tip {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }
