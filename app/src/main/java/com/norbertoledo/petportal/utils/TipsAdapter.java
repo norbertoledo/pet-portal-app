@@ -1,6 +1,7 @@
 package com.norbertoledo.petportal.utils;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +51,9 @@ public class TipsAdapter extends RecyclerView.Adapter<TipsAdapter.Holder> {
         Tip item = listItems.get(position);
 
         holder.title.setText( item.getTitle() );
-        holder.description.setText( item.getDescription() );
+        holder.description.setText( item.getCaption() );
         DrawableCrossFadeFactory factory = new DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build();
-        Glide.with(context).load(item.getImage()).transition(withCrossFade(factory)).centerCrop().into(holder.image);
+        Glide.with(context).load(item.getThumb()).transition(withCrossFade(factory)).centerCrop().into(holder.image);
 
     }
 

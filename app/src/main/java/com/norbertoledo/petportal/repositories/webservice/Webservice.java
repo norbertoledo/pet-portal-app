@@ -135,6 +135,7 @@ public class Webservice {
 
             @Override
             public void onFailure(Call<List<Tip>> call, Throwable t) {
+                Log.d(TAG, "ERROR DE REQUEST: "+String.valueOf(t.getMessage()));
                 listTips.setValue(null);
             }
         });
