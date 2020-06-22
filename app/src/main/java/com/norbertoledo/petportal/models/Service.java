@@ -12,11 +12,12 @@ public class Service {
     private String thumb;
     private String image;
     private String address;
-    private int phone;
+    private String phone;
     private String website;
+    private boolean isActive;
     private Map<String, Double> latlng = new HashMap<String, Double>();
 
-    public Service(String id, String category, String state, String name, String description, String thumb, String image, String address, int phone, String website, Map<String, Double> latlng) {
+    public Service(String id, String category, String state, String name, String description, String thumb, String image, String address, String phone, String website, boolean isActive, Map<String, Double> latlng) {
         this.id = id;
         this.category = category;
         this.state = state;
@@ -27,6 +28,7 @@ public class Service {
         this.address = address;
         this.phone = phone;
         this.website = website;
+        this.isActive = isActive;
         this.latlng = latlng;
     }
 
@@ -94,11 +96,11 @@ public class Service {
         this.address = address;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -108,6 +110,14 @@ public class Service {
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public Map<String, Double> getLatlng() {

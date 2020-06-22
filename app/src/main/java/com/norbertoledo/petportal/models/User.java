@@ -8,7 +8,9 @@ public class User {
     private String name;
     private String email;
     private String photoUrl;
+    private String thumbUrl;
     private String city;
+    private boolean isActive;
 
     public static User getInstance(){
         if(instance == null){
@@ -49,7 +51,6 @@ public class User {
         this.token = token;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -64,5 +65,21 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public String getThumbUrl() {
+        return thumbUrl;
+    }
+
+    public void setThumbUrl(String thumbUrl) {
+        this.thumbUrl = thumbUrl;
     }
 }

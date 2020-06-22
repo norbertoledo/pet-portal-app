@@ -6,12 +6,14 @@ public class ServicesCategory {
     private String name;
     private String image;
     private String color;
+    private boolean isActive;
 
-    public ServicesCategory(String id, String name, String image, String color) {
+    public ServicesCategory(String id, String name, String image, String color, boolean isActive) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.color = color;
+        this.isActive = isActive;
     }
 
     public String getId() {
@@ -44,5 +46,13 @@ public class ServicesCategory {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

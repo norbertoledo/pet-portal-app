@@ -12,9 +12,11 @@ public class Place {
     private String category;
     private String color;
     private String image;
+    private String thumb;
+    private boolean isActive;
     private Map<String, Double> latlng = new HashMap<String, Double>();
 
-    public Place(String id, String title, String caption, String description, String category, Map<String, Double> latlng, String color, String image) {
+    public Place(String id, String title, String caption, String description, String category, Map<String, Double> latlng, String color, String image, String thumb, boolean isActive) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -23,6 +25,8 @@ public class Place {
         this.color = color;
         this.caption = caption;
         this.image = image;
+        this.thumb = thumb;
+        this.isActive = isActive;
     }
 
     public String getId() {
@@ -87,5 +91,21 @@ public class Place {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

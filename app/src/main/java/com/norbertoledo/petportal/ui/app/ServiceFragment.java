@@ -87,7 +87,7 @@ public class ServiceFragment extends Fragment  implements OnMapReadyCallback {
         serviceName.setText( Html.fromHtml(service.getName()) );
         serviceDescription.setText( Html.fromHtml(service.getDescription()) );
         serviceAddress.setText( Html.fromHtml("<b>" + getString(R.string.service_text_address) + "</b> " + service.getAddress()) );
-        servicePhone.setText( Html.fromHtml("<b>" + getString(R.string.service_text_phone) + "</b> " + service.getPhone()) );
+        servicePhone.setText( Html.fromHtml("<b>" + getString(R.string.service_text_phone) + "</b> " + Integer.parseInt(service.getPhone())) );
         serviceWebsite.setText( Html.fromHtml("<b>" + getString(R.string.service_text_website) + "</b> " + service.getWebsite()) );
         serviceUbicacion.setText( Html.fromHtml("<b>" + getString(R.string.service_text_location) + "</b> "));
 

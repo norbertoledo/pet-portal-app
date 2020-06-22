@@ -98,7 +98,7 @@ public class Webservice {
         Iws.getServicesApi(token, state, category).enqueue(new Callback<List<Service>>() {
             @Override
             public void onResponse(Call<List<Service>> call, Response<List<Service>> response) {
-                //Log.d(TAG, "RESPONSE SERVICES CODE OK: "+String.valueOf(response.code()));
+                Log.d(TAG, "RESPONSE SERVICES CODE OK: "+String.valueOf(response.code()));
 
                 if(response.body() != null){
                     services.setValue( response.body() );
@@ -110,6 +110,7 @@ public class Webservice {
             @Override
             public void onFailure(Call<List<Service>> call, Throwable t) {
                 services.setValue(null);
+                Log.d(TAG, "ERROR DE REQUEST: "+String.valueOf(t.getMessage()));
             }
         });
         return services;
